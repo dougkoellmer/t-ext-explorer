@@ -1,0 +1,19 @@
+{
+  "notebook": "Counterexample-J2.ipynb",
+  "scenario": null,
+  "code_cells_executed": 2,
+  "all_passed": true,
+  "seconds": 0.354,
+  "cell_timings": [
+    {
+      "cell": 2,
+      "seconds": 0.2328
+    },
+    {
+      "cell": 3,
+      "seconds": 0.1194
+    }
+  ],
+  "rich_report_verified": true,
+  "source_sha256": "dd0b81efb857ea457139661b34a8b520ed717e2051fef55a066536fc65a4d4a5"
+}

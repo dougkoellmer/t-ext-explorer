@@ -1,0 +1,35 @@
+{
+  "notebook": "PartialReduction-Example.ipynb",
+  "scenario": null,
+  "code_cells_executed": 6,
+  "all_passed": true,
+  "seconds": 0.743,
+  "cell_timings": [
+    {
+      "cell": 2,
+      "seconds": 0.2161
+    },
+    {
+      "cell": 3,
+      "seconds": 0.0213
+    },
+    {
+      "cell": 4,
+      "seconds": 0.338
+    },
+    {
+      "cell": 5,
+      "seconds": 0.0203
+    },
+    {
+      "cell": 6,
+      "seconds": 0.0849
+    },
+    {
+      "cell": 7,
+      "seconds": 0.059
+    }
+  ],
+  "rich_report_verified": true,
+  "source_sha256": "831deac2c421b1ec82190644fc7dba29fae82381ee0e89f01c9caf1015402a0e"
+}

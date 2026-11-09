@@ -1,0 +1,21 @@
+Checking GettingStarted-Concrete.ipynb default
+GettingStarted-Concrete.ipynb default 12 cells passed
+Checking GettingStarted-Symbolic.ipynb default
+GettingStarted-Symbolic.ipynb default 6 cells passed
+Checking MyExamples-Symbolic.ipynb default
+MyExamples-Symbolic.ipynb default 6 cells passed
+Checking PartialReduction-Example.ipynb default
+PartialReduction-Example.ipynb default 6 cells passed
+Checking Counterexample-J2.ipynb default
+Counterexample-J2.ipynb default 2 cells passed
+Checking GettingStarted.ipynb default
+GettingStarted.ipynb default 12 cells passed
+Checking MyExamples-Symbolic.ipynb scalar
+MyExamples-Symbolic.ipynb scalar 6 cells passed
+Checking MyExamples-Symbolic.ipynb nonscalar
+MyExamples-Symbolic.ipynb nonscalar 6 cells passed
+Checking MyExamples-Symbolic.ipynb new-coefficients
+MyExamples-Symbolic.ipynb new-coefficients 6 cells passed
+Checking MyExamples-Symbolic.ipynb invalid
+MyExamples-Symbolic.ipynb invalid 6 cells passed
+All notebooks and input-change scenarios passed: 68 cells

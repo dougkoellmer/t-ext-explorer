@@ -1,0 +1,11 @@
+{
+  "reference_archive": "FJReduction-Mathematica-0.2.0-greek-symbols.zip",
+  "source_files": {
+    "CompatibleBasis.wl": "9189c48c7dcc330fc8eb757639f0390b268ad20d784a229c6994df3d488ff7fd",
+    "FJReduction.wl": "4db6f5f308e22b76a7256189a2f43e9a2a120922b84cf1775d37f781ed11234d",
+    "Tests/CompatibleBasis.wlt": "61b0046ae137127fe97345b9af645fb57de1ca586f31d51c1505b28b5fff0a4c",
+    "Tests/FJReduction.wlt": "713a3715962ae5c5e814d1fe3bda00658dea03f0a1dafba192f93d7b56deec4c",
+    "Tests/ArticleExactSequence.wlt": "f38cc5732c254f95787ff1cb75b4aea2db803befbb86793c53feb01b4cfde903"
+  },
+  "translation": "Python/SymPy port with the same original-column labels, DFS tie-breaking, Ore arithmetic, article coordinate checks and explicit general fallback."
+}

@@ -1,0 +1,39 @@
+{
+  "notebook": "GettingStarted-Symbolic.ipynb",
+  "scenario": null,
+  "code_cells_executed": 7,
+  "all_passed": true,
+  "seconds": 0.484,
+  "cell_timings": [
+    {
+      "cell": 3,
+      "seconds": 0.168
+    },
+    {
+      "cell": 5,
+      "seconds": 0.0005
+    },
+    {
+      "cell": 7,
+      "seconds": 0.0175
+    },
+    {
+      "cell": 9,
+      "seconds": 0.1064
+    },
+    {
+      "cell": 11,
+      "seconds": 0.0291
+    },
+    {
+      "cell": 13,
+      "seconds": 0.115
+    },
+    {
+      "cell": 15,
+      "seconds": 0.0441
+    }
+  ],
+  "rich_report_verified": true,
+  "source_sha256": "69f71d77dc10321d07674d9fe5388ebfb6c9765365ebc8543e8f90876951a9cb"
+}

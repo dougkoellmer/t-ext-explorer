@@ -1,0 +1,83 @@
+{
+  "notebook": "GettingStarted-Concrete.ipynb",
+  "scenario": null,
+  "code_cells_executed": 18,
+  "all_passed": true,
+  "seconds": 62.838,
+  "cell_timings": [
+    {
+      "cell": 2,
+      "seconds": 0.2007
+    },
+    {
+      "cell": 4,
+      "seconds": 0.0026
+    },
+    {
+      "cell": 6,
+      "seconds": 0.0217
+    },
+    {
+      "cell": 8,
+      "seconds": 0.0061
+    },
+    {
+      "cell": 10,
+      "seconds": 0.0097
+    },
+    {
+      "cell": 12,
+      "seconds": 0.0719
+    },
+    {
+      "cell": 14,
+      "seconds": 0.025
+    },
+    {
+      "cell": 16,
+      "seconds": 0.0235
+    },
+    {
+      "cell": 17,
+      "seconds": 0.0106
+    },
+    {
+      "cell": 19,
+      "seconds": 0.0894
+    },
+    {
+      "cell": 20,
+      "seconds": 0.0325
+    },
+    {
+      "cell": 22,
+      "seconds": 0.0295
+    },
+    {
+      "cell": 24,
+      "seconds": 0.0367
+    },
+    {
+      "cell": 26,
+      "seconds": 0.0337
+    },
+    {
+      "cell": 28,
+      "seconds": 62.133
+    },
+    {
+      "cell": 30,
+      "seconds": 0.0388
+    },
+    {
+      "cell": 32,
+      "seconds": 0.0183
+    },
+    {
+      "cell": 34,
+      "seconds": 0.0467
+    }
+  ],
+  "rich_report_verified": true,
+  "source_sha256": "86b07cf45ab4b9b1366e54c6b2a06c813e37f6424eadb1c32e9b58b0d5e89528"
+}

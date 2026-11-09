@@ -1,0 +1,8 @@
+node_modules/*
+lib/node-bundle.js.LICENSE.txt
+/backend/venv
+/backend/__pycache__/tmc_consts.cpython-310.pyc
+/backend/__pycache__/tmc_utils.cpython-310.pyc
+*.pyc
+front_end_build/*
+front_end_build.zip

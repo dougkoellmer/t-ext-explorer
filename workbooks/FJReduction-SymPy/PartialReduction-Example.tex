@@ -1,0 +1,198 @@
+\subsection{Partial basis and the \texorpdfstring{$J_2$}{J2} example}
+\label{sec:partial-basis-j2}
+
+The following example distinguishes a count of individual coordinate
+intertwiners from the dimension of the full intertwining space. It also
+shows why the action on the constant quotient need not be scalar.
+Let $L=\mathbb F_q(\theta)$ and put
+\[
+ J_2=\begin{pmatrix}0&1\\0&0\end{pmatrix},\qquad
+ \Phi_t=\begin{pmatrix}\theta+\tau^2&1\\0&\theta+\tau^2\end{pmatrix},
+ \qquad
+ \Psi_t=\begin{pmatrix}\theta&1+\tau\\0&\theta\end{pmatrix}.
+\]
+Thus $N_\Phi=N_\Psi=J_2$. The leading coefficient of $\Phi_t$ is
+$I_2$, so we may take $C=I_2$, $\sigma=(1,2)$ and
+$(j_1,j_2)=(2,2)$. The degree gap holds:
+$\deg_\tau\Psi_t=1<2$.
+The full normal representatives have degree less than two in every entry.
+Consequently, $M=8$, with ordered basis
+\begin{equation}
+ \mathcal E=(E_{11},E_{11}\tau,E_{12},E_{12}\tau,
+             E_{21},E_{21}\tau,E_{22},E_{22}\tau).
+ \label{eq:partial-j2-full-basis}
+\end{equation}
+The extra $\tau$ in $\Psi_t$ acts on a scalar coefficient $c$
+by $c\mapsto c^q$. Terms of degree two are reduced using inner
+biderivations. In the order \eqref{eq:partial-j2-full-basis}, the full action is
+\begin{equation}
+ \Pi_t=\begin{pmatrix}\theta I_4&A(\tau)\\0&\theta I_4\end{pmatrix},
+ \qquad
+ A(\tau)=\begin{pmatrix}
+  1&0&0&0\\
+  \tau&1&0&0\\
+  0&-\tau&1&0\\
+  0&0&\tau&1
+ \end{pmatrix}.
+ \label{eq:partial-j2-full-action}
+\end{equation}
+For example, the degree-two term in $\Psi_t(cE_{21}\tau)$
+is $c^qE_{11}\tau^2$, whose normal reduction is $-c^qE_{12}$.
+This accounts for the entry $-\tau$ in $A(\tau)$.
+
+\paragraph{The constant map and the individual direction count.}
+For $H=\begin{pmatrix}x&y\\z&w\end{pmatrix}$, the constant map is
+\begin{equation}
+ \mathcal T(H)=HJ_2-J_2H
+     =\begin{pmatrix}-z&x-w\\0&z\end{pmatrix}.
+ \label{eq:partial-j2-constant-map}
+\end{equation}
+With column vectorization $\operatorname{vec}(H)=(x,z,y,w)^T$, its matrix is
+\[
+ D=\begin{pmatrix}
+  0&-1&0&0\\
+  0&0&0&0\\
+  1&0&0&-1\\
+  0&1&0&0
+ \end{pmatrix}.
+\]
+Hence
+\begin{equation}
+ \operatorname{rank}D=2,\qquad
+ \ker\mathcal T=L I_2\oplus L E_{12},\qquad
+ h=4-\operatorname{rank}D=2.
+ \label{eq:partial-j2-rank}
+\end{equation}
+Among the four individual matrix units, only $E_{12}$ lies in this
+kernel. The second kernel direction, $I_2=E_{11}+E_{22}$, is a linear
+combination of two units whose images are nonzero. Thus the rule
+$\varepsilon_{i,s}=0$ when $E_{i,s}J_2=J_2E_{i,s}$, and $1$ otherwise,
+gives
+\[
+ \varepsilon=\begin{pmatrix}1&0\\1&1\end{pmatrix}.
+\]
+The number of zero entries is one, whereas the full kernel dimension
+is two. A dimension calculation using the individual count would predict
+$8-1=7$; the correct dimension of
+$\operatorname{Ext}_{0,\tau}(\Phi,\Psi)$ is $8-h=6$.
+
+This discrepancy is visible directly in the candidate partial basis.
+The shifted degree ranges $1\leq r<j_s+\varepsilon_{i,s}$ give
+\[
+ (E_{11}\tau,E_{11}\tau^2,E_{12}\tau,
+  E_{21}\tau,E_{21}\tau^2,E_{22}\tau,E_{22}\tau^2).
+\]
+These seven representatives do not give seven independent additive
+coordinates. For a constant matrix $H$,
+\[
+ \delta^{(H)}_t=H\Phi_t-\Psi_tH
+   =\mathcal T(H)+H\tau^2-J_2H^{(1)}\tau,
+\]
+where $H^{(1)}$ denotes entrywise $q$-th powers. In particular, for every
+$c\in L$,
+\[
+ \delta^{(cI_2)}_t=cI_2\tau^2-c^qE_{12}\tau.
+\]
+Consequently,
+\begin{equation}
+ [cE_{11}\tau^2]+[cE_{22}\tau^2]-[c^qE_{12}\tau]=0.
+ \label{eq:partial-j2-dependence}
+\end{equation}
+In the displayed candidate order, the additive parameter vector
+$(0,c,-c^q,0,0,0,c)$ therefore represents zero. The missing intertwiner
+$I_2$ produces this one-parameter redundancy, missed by counting individual
+coordinate directions. The family parametrizes the subgroup but is not a
+coordinate basis; the partial basis applicability test rejects it.
+
+\paragraph{The true subgroup in normal coordinates.}
+The image of the constant map is
+\[
+ \operatorname{im}\mathcal T
+ =L E_{12}\oplus L(E_{22}-E_{11}).
+\]
+The rank-based construction consequently gives the ordered basis
+\begin{equation}
+ \mathcal E_0=(E_{12},E_{22}-E_{11},
+               E_{11}\tau,E_{12}\tau,E_{21}\tau,E_{22}\tau).
+ \label{eq:partial-j2-zero-basis}
+\end{equation}
+The first two normal representatives have nonzero constant terms, but
+these constants are removable by inner biderivations. Indeed,
+\[
+ [cE_{12}]=[-cE_{11}\tau^2],\qquad
+ [c(E_{22}-E_{11})]=[c^qE_{11}\tau-cE_{21}\tau^2]
+ \quad(c\in L).
+\]
+Both classes therefore admit representatives with zero constant term,
+as required by the definition of $\operatorname{Ext}_{0,\tau}$.
+In the order \eqref{eq:partial-j2-zero-basis}, the restricted action is
+\begin{equation}
+ \Pi_{0,t}=\begin{pmatrix}
+  \theta&1&0&0&-\tau&0\\
+  0&\theta&0&0&0&0\\
+  0&0&\theta&0&1&0\\
+  0&\tau&0&\theta&0&1\\
+  0&0&0&0&\theta&0\\
+  0&0&0&0&0&\theta
+ \end{pmatrix}.
+ \label{eq:partial-j2-zero-action}
+\end{equation}
+The inclusion, expressed in the full normal coordinates, is the constant map
+\begin{equation}
+ K(u_1,\ldots,u_6)^T
+   =(-u_2,u_3,u_1,u_4,0,u_5,u_2,u_6)^T.
+ \label{eq:partial-j2-inclusion}
+\end{equation}
+
+\paragraph{The nonscalar quotient and the exact sequence.}
+Choose $[E_{21}]$ and $[E_{22}]$ as the ordered basis of
+$\operatorname{Mat}_2(L)/\operatorname{im}\mathcal T$.
+For $X=\begin{pmatrix}x&y\\z&w\end{pmatrix}$, its quotient coordinates
+are $(z,x+w)^T$. In the full coordinate order
+\eqref{eq:partial-j2-full-basis}, the projection is therefore
+\begin{equation}
+ P(x_1,\ldots,x_8)^T=(x_5,x_1+x_7)^T.
+ \label{eq:partial-j2-projection}
+\end{equation}
+The induced action of $J_2$ sends
+$[E_{21}]$ to $[E_{11}]=[E_{22}]$ and $[E_{22}]$ to
+$[E_{12}]=0$. Thus the quotient action is
+\begin{equation}
+ Q_t=\begin{pmatrix}\theta&0\\1&\theta\end{pmatrix},
+ \qquad Q_t\neq\theta I_2.
+ \label{eq:partial-j2-quotient}
+\end{equation}
+The maps above satisfy
+\[
+ \Pi_tK=K\Pi_{0,t},\qquad P\Pi_t=Q_tP,\qquad PK=0.
+\]
+Moreover, $K$ is injective, $P$ is surjective and $\ker P=\operatorname{im}K$.
+These facts follow immediately from
+\eqref{eq:partial-j2-inclusion}--\eqref{eq:partial-j2-projection}.
+These identities are understood in the Ore ring $L\{\tau\}$.
+The entries of $K$ and $P$ are $0,1,-1$, hence Frobenius-fixed, so the
+identities can be checked coefficientwise despite the $\tau$-terms in the
+action matrices.
+We obtain the exact sequence of $t$-modules
+\begin{equation}
+ 0\longrightarrow(\mathbb G_a^6,\Pi_{0,t})
+ \xrightarrow{K}(\mathbb G_a^8,\Pi_t)
+ \xrightarrow{P}(\mathbb G_a^2,Q_t)
+ \longrightarrow0.
+ \label{eq:partial-j2-exact-sequence}
+\end{equation}
+In terms of extension classes, its first two terms are
+$\operatorname{Ext}_{0,\tau}(\Phi,\Psi)$ and
+$\operatorname{Ext}^1_\tau(\Phi,\Psi)$, respectively.
+The differentials of $\Pi_t$, $\Pi_{0,t}$ and $Q_t$ are $\theta I$
+plus square-zero nilpotent matrices.
+The computations and the dependence
+\eqref{eq:partial-j2-dependence} remain valid in every characteristic,
+including characteristic two.
+
+This example shows that the full rank calculation and the induced quotient
+action are essential: the number of individual coordinate intertwiners
+need not equal $h$, and the constant quotient need not have scalar
+$t$-action. The supplied \texttt{Counterexample-J2.nb} computes this pair,
+its bases, the exact-sequence maps and the partial basis applicability
+conditions.

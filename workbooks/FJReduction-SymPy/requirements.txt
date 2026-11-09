@@ -1,0 +1,3 @@
+sympy>=1.14,<1.15
+notebook>=7
+ipykernel>=6

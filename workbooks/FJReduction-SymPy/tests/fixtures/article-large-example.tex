@@ -1,0 +1,266 @@
+\subsection{A fourteen-dimensional extension \texorpdfstring{$t$}{t}-module}
+\label{sec:large-example}
+\setcounter{MaxMatrixCols}{14}
+
+Let $L=\Fq(\theta)$, with $\theta$ transcendental over $\Fq$,
+and consider
+\begin{equation}
+ \Phi_t=
+ \begin{pmatrix}
+  \theta+\tau^4&\tau\\
+  0&\theta+\tau^3
+ \end{pmatrix},
+ \qquad
+ \Psi_t=
+ \begin{pmatrix}
+  \theta+\theta^2\tau&0\\
+  1+\tau&\theta+\theta\tau
+ \end{pmatrix}.
+ \label{eq:large-presentations}
+\end{equation}
+The coefficient of $\tau^4$ in $\Phi_t$ has rank one.
+The nonzero positive coefficient blocks are
+\[
+ A_1=\begin{pmatrix}0&1\\0&0\end{pmatrix},\qquad
+ A_3=\begin{pmatrix}0&0\\0&1\end{pmatrix},\qquad
+ A_4=\begin{pmatrix}1&0\\0&0\end{pmatrix}.
+\]
+Here $A_2=0$. The suffix ranks are $s_4=1$ and $s_3=2$,
+so Algorithm~\ref{alg:preprocess} retains $[A_3\mid A_4]$
+and returns
+\[
+ \mathrm{Flag}=((3,2),(4,1)),\qquad
+ \mathrm{Required}=(0,0,1,1).
+\]
+The candidate lists contain only $c_4^1=e_1$ and
+$c_3^2=e_2$. Their compatible-order graph has no edges,
+so Algorithm~\ref{alg:order} returns
+\begin{equation}
+ \sigma=(1,2),\qquad
+ \mathbb B=((1,4,e_1),(2,3,e_2)),\qquad C=I_2.
+ \label{eq:large-compatible-basis}
+\end{equation}
+The selected vectors form the compatible basis
+$(c_4^1,c_3^2)=(e_1,e_2)$.
+Indeed, reading the retained blocks in this order gives
+\[
+ (c_4^1,c_4^2,c_3^1,c_3^2)=(e_1,0,0,e_2),
+\]
+with successive ranks $1,1,1,2$. Thus
+\[
+ (j_1,j_2)=(4,3),\qquad N=3,\qquad J=7.
+\]
+Consequently, $\Phi$ is of type $\mathrm{FJ}_{(1,2),3}$,
+and the degree gap holds because $\deg_\tau\Psi_t=1<3$.
+
+The nilpotent parts are
+\[
+ N_\Phi=0,\qquad
+ N_\Psi=\begin{pmatrix}0&0\\1&0\end{pmatrix}.
+\]
+Since $C=I_2$, the intertwining condition is
+$N_\Psi E_{i,s}=0$. It holds precisely for $(i,s)=(2,1)$
+and $(2,2)$. Hence Algorithm~\ref{alg:ext0-gapart} gives
+\begin{equation}
+ \varepsilon=\begin{pmatrix}1&1\\0&0\end{pmatrix},
+ \qquad h=2,\qquad M=14,\qquad M_0=12.
+ \label{eq:large-dimensions}
+\end{equation}
+
+The full normal representatives satisfy
+$\deg_\tau F_{i,1}<4$ and $\deg_\tau F_{i,2}<3$.
+We use the ordered basis
+\[
+\begin{aligned}
+ \EE=\big(&E_{11},E_{11}\tau,E_{11}\tau^2,E_{11}\tau^3,
+            E_{12},E_{12}\tau,E_{12}\tau^2,\\
+          &E_{21},E_{21}\tau,E_{21}\tau^2,E_{21}\tau^3,
+            E_{22},E_{22}\tau,E_{22}\tau^2\big).
+\end{aligned}
+\]
+For $\Ext_0(\Phi,\Psi)$, the ordered family is
+\[
+\begin{aligned}
+ \mathbf E_0=\big(&E_{11}\tau,E_{11}\tau^2,E_{11}\tau^3,
+                   E_{11}\tau^4,
+                   E_{12}\tau,E_{12}\tau^2,E_{12}\tau^3,\\
+                 &E_{21}\tau,E_{21}\tau^2,E_{21}\tau^3,
+                   E_{22}\tau,E_{22}\tau^2\big).
+\end{aligned}
+\]
+The additional degrees four and three in the first row
+come from $\varepsilon_{1,1}=\varepsilon_{1,2}=1$.
+
+To keep the displayed matrices readable, put
+\[
+ a=\theta^2,\qquad b=\theta,\qquad
+ \Delta=\theta^{(1)}-\theta,
+\]
+and write
+\begin{equation}
+\begin{aligned}
+ \alpha&=a a^{(1)}\tau^2,
+ &\beta&=b b^{(1)}\tau^2,
+ &\gamma&=(b+a^{(1)})\tau^2,\\
+ \xi&=-a\Delta\tau,
+ &\omega&=(a+b-\Delta)\tau.
+\end{aligned}
+ \label{eq:large-entry-notation}
+\end{equation}
+Here $u^{(1)}=u^q$, and coefficients are written on the
+left of $\tau$. Algorithms~\ref{alg:reduce} and
+\ref{alg:extmatrix} give the full action matrix
+\begingroup
+\setlength{\arraycolsep}{2pt}
+\begin{equation}
+ \Pi_t=
+\begin{pmatrix}
+  \theta & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0\\
+  a\tau & \theta & 0 & \alpha & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0\\
+  0 & a\tau & \theta & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0\\
+  0 & 0 & a\tau & \theta & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0\\
+  0 & 0 & 0 & 0 & \theta & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0\\
+  0 & 0 & 0 & -a\tau & a\tau & \theta & \alpha & 0 & 0 & 0 & 0 & 0 & 0 & 0\\
+  0 & 0 & 0 & 0 & 0 & a\tau & \theta & 0 & 0 & 0 & 0 & 0 & 0 & 0\\
+  1 & 0 & 0 & a\tau & 0 & 0 & 0 & \theta & 0 & 0 & 0 & 0 & 0 & 0\\
+  \tau & 1 & 0 & \gamma & 0 & 0 & 0 & b\tau & \theta & 0 & \beta & 0 & 0 & 0\\
+  0 & \tau & 1 & 0 & 0 & 0 & 0 & 0 & b\tau & \theta & 0 & 0 & 0 & 0\\
+  0 & 0 & \tau & 1 & 0 & 0 & 0 & 0 & 0 & b\tau & \theta & 0 & 0 & 0\\
+  0 & 0 & 0 & 0 & 1 & 0 & a\tau & 0 & 0 & 0 & 0 & \theta & 0 & 0\\
+  0 & 0 & 0 & -\tau & \tau & 1 & \gamma & 0 & 0 & 0 & -b\tau & b\tau & \theta & \beta\\
+  0 & 0 & 0 & 0 & 0 & \tau & 1 & 0 & 0 & 0 & 0 & 0 & b\tau & \theta
+ \end{pmatrix}
+ \label{eq:large-full-action}
+\end{equation}
+\endgroup
+Its differential is
+\[
+ \partial\Pi_t=
+ \begin{pmatrix}\theta I_7&0\\I_7&\theta I_7\end{pmatrix}
+ = (\theta I_2+N_\Psi)\otimes I_7.
+\]
+
+Algorithms~\ref{alg:ext0-reduce} and~\ref{alg:ext0-action}
+give the action on $\Ext_0$ in the order $\mathbf E_0$:
+\begingroup
+\setlength{\arraycolsep}{2pt}
+\begin{equation}
+ \Pi_{0,t}=
+\begin{pmatrix}
+  \theta & 0 & 0 & \xi & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0\\
+  a\tau & \theta & 0 & \alpha & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0\\
+  0 & a\tau & \theta & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0\\
+  0 & 0 & a\tau & \theta & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0\\
+  0 & 0 & 0 & 0 & \theta & 0 & \xi & 0 & 0 & 0 & 0 & 0\\
+  0 & 0 & 0 & -a\tau & a\tau & \theta & \alpha & 0 & 0 & 0 & 0 & 0\\
+  0 & 0 & 0 & 0 & 0 & a\tau & \theta & 0 & 0 & 0 & 0 & 0\\
+  1 & 0 & b\tau^2 & \omega & 0 & 0 & 0 & \theta & 0 & \beta & 0 & 0\\
+  \tau & 1 & 0 & \gamma & 0 & 0 & 0 & b\tau & \theta & 0 & 0 & 0\\
+  0 & \tau & 1 & 0 & 0 & 0 & 0 & 0 & b\tau & \theta & 0 & 0\\
+  0 & 0 & -\tau & -1 & 1 & b\tau^2 & \omega & 0 & 0 & -b\tau & \theta & \beta\\
+  0 & 0 & 0 & -\tau & \tau & 1 & \gamma & 0 & 0 & 0 & b\tau & \theta
+ \end{pmatrix}
+ \label{eq:large-ext0-action}
+\end{equation}
+\endgroup
+The constant part of this matrix is $\theta I_{12}$ plus
+a square-zero matrix. Thus both displayed actions satisfy
+the Anderson condition, with nonzero nilpotent parts.
+
+Only the fourth and seventh elements of $\mathbf E_0$
+require reduction to obtain their full normal coordinates.
+For a formal scalar $c$, these reductions are
+\begin{align}
+ \operatorname{red}(cE_{11}\tau^4)
+   &=a c^qE_{11}\tau-cE_{12}\tau
+       +cE_{21}+c^qE_{21}\tau,\\
+ \operatorname{red}(cE_{12}\tau^3)
+   &=a c^qE_{12}\tau+cE_{22}+c^qE_{22}\tau.
+ \label{eq:large-boundary-reductions}
+\end{align}
+They follow by subtracting the inner biderivations
+determined by $cE_{11}$ and $cE_{12}$, respectively.
+The terms $c^q$ give entries containing $\tau$ in the
+inclusion matrix. Algorithm~\ref{alg:ext0-transition}
+therefore returns
+\begingroup
+\setlength{\arraycolsep}{2pt}
+\begin{equation}
+ T=
+\begin{pmatrix}
+  0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0\\
+  1 & 0 & 0 & a\tau & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0\\
+  0 & 1 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0\\
+  0 & 0 & 1 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0\\
+  0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0\\
+  0 & 0 & 0 & -1 & 1 & 0 & a\tau & 0 & 0 & 0 & 0 & 0\\
+  0 & 0 & 0 & 0 & 0 & 1 & 0 & 0 & 0 & 0 & 0 & 0\\
+  0 & 0 & 0 & 1 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0\\
+  0 & 0 & 0 & \tau & 0 & 0 & 0 & 1 & 0 & 0 & 0 & 0\\
+  0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 1 & 0 & 0 & 0\\
+  0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 1 & 0 & 0\\
+  0 & 0 & 0 & 0 & 0 & 0 & 1 & 0 & 0 & 0 & 0 & 0\\
+  0 & 0 & 0 & 0 & 0 & 0 & \tau & 0 & 0 & 0 & 1 & 0\\
+  0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 1
+ \end{pmatrix}
+ \label{eq:large-inclusion}
+\end{equation}
+\endgroup
+
+For an inner biderivation, the constant coefficient is
+$-N_\Psi H_0$, which is supported in the second row.
+The quotient map consequently records the constant
+coefficients in the first row. In the coordinate order
+$\EE$, it is
+\begin{equation}
+ P=
+\begin{pmatrix}
+  1 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0\\
+  0 & 0 & 0 & 0 & 1 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0
+ \end{pmatrix}
+ \label{eq:large-projection}
+\end{equation}
+Direct Ore multiplication gives
+\begin{equation}
+ \Pi_tT=T\Pi_{0,t},\qquad
+ P\Pi_t=\theta P,\qquad PT=0.
+ \label{eq:large-intertwining}
+\end{equation}
+
+Exactness can also be checked directly in these coordinates.
+If $z=(z_1,\ldots,z_{14})$ satisfies $Pz=0$, then
+$z_1=z_5=0$ and its unique preimage under $T$ is
+\[
+\begin{aligned}
+ (&z_2-a z_8^q,\ z_3,\ z_4,\ z_8,\
+   z_6+z_8-a z_{12}^q,\ z_7,\ z_{12},\\
+  &z_9-z_8^q,\ z_{10},\ z_{11},\
+   z_{13}-z_{12}^q,\ z_{14}).
+\end{aligned}
+\]
+This is a polynomial inverse on $\ker P$. The map $P$ is
+surjective, so the full exact sequence in normal coordinates is
+\begin{equation}
+ 0\longrightarrow(\Ga^{12},\Pi_{0,t})
+ \xrightarrow{T}(\Ga^{14},\Pi_t)
+ \xrightarrow{P}(\Ga^2,\theta I_2)
+ \longrightarrow0.
+ \label{eq:large-coordinate-sequence}
+\end{equation}
+Under the identifications with extension classes, this becomes
+\begin{equation}
+ 0\longrightarrow\Ext_0(\Phi,\Psi)
+ \xrightarrow{\iota}\Ext^1_\tau(\Phi,\Psi)
+ \xrightarrow{p}(\Ga^2,\theta I_2)
+ \longrightarrow0.
+ \label{eq:large-extension-sequence}
+\end{equation}
+
+The search for this example has one candidate in each
+list and tests one completed selection. Across all columns,
+Algorithms~\ref{alg:extmatrix}, \ref{alg:ext0-action}, and
+\ref{alg:ext0-transition} use six, ten, and two nonzero inner
+corrections, respectively, compared with the uniform bounds
+$14K(4)=84$, $12K_0(5)=96$, and $2K(4)=12$ obtained from
+\eqref{eq:complexity-reduction-counts}. The two action matrices have
+$\tau$-degree two, and the inclusion has $\tau$-degree one.

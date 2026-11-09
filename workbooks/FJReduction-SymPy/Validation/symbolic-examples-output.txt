@@ -1,0 +1,40 @@
+FJReduction version: 0.3.0
+Formal rational difference field (generic Q)
+<IPython.core.display.Math object>
+<IPython.core.display.Math object>
+<IPython.core.display.Math object>
+<IPython.core.display.Math object>
+<IPython.core.display.Math object>
+Compatible order sigma: [1, 2]
+Jump degrees: [4, 3]
+Dimensions (Ext, Ext_0, quotient): (14, 12, 2)
+Exact sequence verified: True
+Full basis: [(1, 1, 0), (1, 1, 1), (1, 1, 2), (1, 1, 3), (1, 2, 0), (1, 2, 1), (1, 2, 2), (2, 1, 0), (2, 1, 1), (2, 1, 2), (2, 1, 3), (2, 2, 0), (2, 2, 1), (2, 2, 2)]
+Ext_0 basis: [(1, 1, 1), (1, 1, 2), (1, 1, 3), (1, 1, 4), (1, 2, 1), (1, 2, 2), (1, 2, 3), (2, 1, 1), (2, 1, 2), (2, 1, 3), (2, 2, 1), (2, 2, 2)]
+<IPython.core.display.Math object>
+<IPython.core.display.Math object>
+<IPython.core.display.Math object>
+<IPython.core.display.Math object>
+<IPython.core.display.Math object>
+<IPython.core.display.Math object>
+<IPython.core.display.Math object>
+Step 1: row 1, original column 1, degree 6, shift 2, coefficient 1
+Step 2: row 2, original column 1, degree 6, shift 2, coefficient 2
+Step 3: row 1, original column 2, degree 6, shift 3, coefficient 2
+Step 4: row 2, original column 2, degree 6, shift 3, coefficient 4
+Step 5: row 1, original column 2, degree 4, shift 1, coefficient 2*θ**2
+Step 6: row 2, original column 2, degree 4, shift 1, coefficient 4*θ + 2
+Step 7: row 1, original column 2, degree 3, shift 0, coefficient 2*θ - 2*θ^(3) - 1
+Step 8: row 2, original column 2, degree 3, shift 0, coefficient 4*θ - 4*θ^(3)
+Inner witness verified: True
+Generic characteristic: True
+Excluded primes from recorded denominators/pivots: []
+Nonzero conditions:
+Exclude all powers of an excluded prime, and any q/parameter specialization at which a recorded condition vanishes. Recompute the compatible basis and report after specialization.
+q=2: all four matrices agree; exact sequence verified.
+q=3: all four matrices agree; exact sequence verified.
+q=5: all four matrices agree; exact sequence verified.
+a=1: {'Q': 3, 'Characteristic': 3, 'RecordedConditionsSatisfied': False, 'FailedConditions': [{'Condition': -a + a^(1), 'Reason': 'Specializes to zero'}], 'RecomputeReportAfterSpecialization': True}
+a=theta: {'Q': 3, 'Characteristic': 3, 'RecordedConditionsSatisfied': True, 'FailedConditions': [], 'RecomputeReportAfterSpecialization': True}
+<IPython.core.display.Math object>
+<IPython.core.display.Math object>

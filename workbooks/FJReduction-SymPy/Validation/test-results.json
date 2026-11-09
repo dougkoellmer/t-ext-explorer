@@ -1,0 +1,34 @@
+{
+  "implementation": "FJReduction-SymPy 0.4.5",
+  "python": "3.12.14",
+  "sympy": "1.14.0",
+  "tests": 120,
+  "failures": 0,
+  "errors": 0,
+  "skipped": 0,
+  "all_passed": true,
+  "elapsed_seconds": 61.834,
+  "independent_checks": [
+    "512 binary matrix comparisons over Q and F2 against a rank-jump oracle",
+    "36 random dimension-three basis existence comparisons",
+    "Every partial basis partial-coordinate matrix entry across 11 field/q configurations; current exact sequence ranks, Ore identities and Anderson conditions",
+    "Numeric coefficient-mode reduction versus formal additive action columns",
+    "Six Ore polynomial morphism/inverse identities for each article exact sequence",
+    "18 random reduction witness, idempotence and additive action cases",
+    "Formal Frobenius laws, rational normalization and Ore associativity",
+    "Independent symbolic/concrete comparisons for q=2,3,5 and q=9",
+    "Recorded denominator/pivot conditions and rejected specializations"
+  ],
+  "source_sha256": {
+    "fj_sympy/__init__.py": "4b089ddf067d0d3a301378cc5643ab165b44105997b8e965bca8357ea113437f",
+    "fj_sympy/compatible_basis.py": "a66b639cf5fcd71838157fc78490b4a0691aeba478e3e84813d4f91ce9e1d004",
+    "fj_sympy/example_reports.py": "7260cec602e8689f81463dfe1e95443e0e44213d007694171e721eac560be290",
+    "fj_sympy/fields.py": "b91158d742c9828602e621adabf51e6fb85b6bdfb2c8cf1f00308fc84dcfd39c",
+    "fj_sympy/linear.py": "d29a107ee8a25941fdd8aef28138985374fe97738a8fd24253aed09f4cf810a3",
+    "fj_sympy/ore.py": "a8785a6713fee87ef3c6152bb357265c72e8711e8e169f1603212083ee6b32b2",
+    "fj_sympy/reduction.py": "30259818f752a773f2ac91a2663460c8e1140935c94226aae38e42df005ec7ff",
+    "fj_sympy/sequence.py": "161dea977eef730706c5ae9db74900f0f78ff39de04a143e65a0bb87a89644be",
+    "fj_sympy/symbolic.py": "5a448e7205372dcd392b4af948a5518f6044f548b4efd0118aeaedafe9c19729"
+  },
+  "scope": "Executes this SymPy implementation. Reference outputs come from the supplied Mathematica 0.2.0 tests and article formulas; Mathematica/Sage are not rerun here."
+}

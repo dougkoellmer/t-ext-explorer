@@ -1,0 +1,8 @@
+{
+  "dependencies": {
+    "@unified-latex/unified-latex": "^1.8.3"
+  },
+  "devDependencies": {
+    "webpack-cli": "^6.0.1"
+  }
+}

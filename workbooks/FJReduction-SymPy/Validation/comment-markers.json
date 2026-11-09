@@ -1,0 +1,68 @@
+{
+  "change": "Polish begin/end comments for correct Ext0 and exact sequence",
+  "no_executable_changes": true,
+  "checks": [
+    {
+      "file": "fj_sympy/sequence.py",
+      "only_comments_changed": true,
+      "python_ast_unchanged": true,
+      "before_sha256": "4e65779d5f6ba686b4306a9721df1cac20cfb83fb0cd6dbca38028fed18623bf",
+      "after_sha256": "90657b188f99ee489a8148eb7dc5761b7410c770743146a850fcc9d1a5f5f49b"
+    },
+    {
+      "file": "fj_sympy/reduction.py",
+      "only_comments_changed": true,
+      "python_ast_unchanged": true,
+      "before_sha256": "4c9e92ac8e994632b00ff84ee1ea4344315f463d6f5ba0500ff88c7a1c1e089b",
+      "after_sha256": "88a64c2f1fc1a659103f1025398716e27d43f6850b43bcc3b4845588de02fb74"
+    },
+    {
+      "file": "fj_sympy/__init__.py",
+      "only_comments_changed": true,
+      "python_ast_unchanged": true,
+      "before_sha256": "db3d31cd238c1e0244977fc89e4fddd3033cdb964a84087774871d94fe9ae35a",
+      "after_sha256": "a99ab65b95a7c9ac0d01afb9853e651caceddd0f248087fd6073423e8c4f236a"
+    },
+    {
+      "file": "MyExamples-Symbolic.py",
+      "only_comments_changed": true,
+      "python_ast_unchanged": true,
+      "before_sha256": "3f1d4b12026a5955454102323d87b6852de8dedde22472ffe70f03ebe542eb95",
+      "after_sha256": "d05008ebcc9c08b77dc56896a4d411434f6957bf598afd2146c6ed6a9d3a0bc6"
+    },
+    {
+      "file": "MyExamples-Symbolic.ipynb",
+      "all_code_cell_asts_unchanged": true,
+      "executed_outputs_preserved": true
+    },
+    {
+      "file": "GettingStarted-Concrete.py",
+      "only_comments_changed": true,
+      "python_ast_unchanged": true,
+      "before_sha256": "c93b80b0563f7286fe1e9f0b636527191617b71b4998d77f4ca897f56dde69c7",
+      "after_sha256": "341476288c12701ab4e9e6826dc86c7d393c680d5a03ff94ee3a95650f113ed6"
+    },
+    {
+      "file": "GettingStarted-Concrete.ipynb",
+      "all_code_cell_asts_unchanged": true,
+      "executed_outputs_preserved": true
+    },
+    {
+      "file": "GettingStarted.py",
+      "only_comments_changed": true,
+      "python_ast_unchanged": true,
+      "before_sha256": "c93b80b0563f7286fe1e9f0b636527191617b71b4998d77f4ca897f56dde69c7",
+      "after_sha256": "341476288c12701ab4e9e6826dc86c7d393c680d5a03ff94ee3a95650f113ed6"
+    }
+  ],
+  "current_source_sha256": {
+    "fj_sympy/__init__.py": "a99ab65b95a7c9ac0d01afb9853e651caceddd0f248087fd6073423e8c4f236a",
+    "fj_sympy/compatible_basis.py": "a66b639cf5fcd71838157fc78490b4a0691aeba478e3e84813d4f91ce9e1d004",
+    "fj_sympy/fields.py": "fe22d0dad47319492a9a6016a0a65f23f27e99b65b17f73e5ddb8291508f90f2",
+    "fj_sympy/linear.py": "d29a107ee8a25941fdd8aef28138985374fe97738a8fd24253aed09f4cf810a3",
+    "fj_sympy/ore.py": "a8785a6713fee87ef3c6152bb357265c72e8711e8e169f1603212083ee6b32b2",
+    "fj_sympy/reduction.py": "88a64c2f1fc1a659103f1025398716e27d43f6850b43bcc3b4845588de02fb74",
+    "fj_sympy/sequence.py": "90657b188f99ee489a8148eb7dc5761b7410c770743146a850fcc9d1a5f5f49b",
+    "fj_sympy/symbolic.py": "5a448e7205372dcd392b4af948a5518f6044f548b4efd0118aeaedafe9c19729"
+  }
+}

@@ -1,0 +1,35 @@
+{
+  "notebook": "MyExamples-Symbolic.ipynb",
+  "scenario": "invalid",
+  "code_cells_executed": 6,
+  "all_passed": true,
+  "seconds": 0.282,
+  "cell_timings": [
+    {
+      "cell": 3,
+      "seconds": 0.1993
+    },
+    {
+      "cell": 5,
+      "seconds": 0.0166
+    },
+    {
+      "cell": 7,
+      "seconds": 0.0045
+    },
+    {
+      "cell": 9,
+      "seconds": 0.0005
+    },
+    {
+      "cell": 11,
+      "seconds": 0.0005
+    },
+    {
+      "cell": 13,
+      "seconds": 0.0606
+    }
+  ],
+  "rich_report_verified": true,
+  "source_sha256": "14dc12603af2dd00a7761585109de97c6cff257c424ae4fa35e320a9396e2ffc"
+}

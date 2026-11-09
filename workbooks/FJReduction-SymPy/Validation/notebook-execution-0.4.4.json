@@ -1,0 +1,439 @@
+{
+  "method": "Fresh processes with actual IPython code-cell execution and captured rich display",
+  "implementation": "SymPy",
+  "jupyter_browser_ui_checked": false,
+  "notebooks": [
+    {
+      "notebook": "GettingStarted-Concrete.ipynb",
+      "scenario": null,
+      "code_cells_executed": 18,
+      "all_passed": true,
+      "seconds": 23.804,
+      "cell_timings": [
+        {
+          "cell": 2,
+          "seconds": 0.2498
+        },
+        {
+          "cell": 4,
+          "seconds": 0.003
+        },
+        {
+          "cell": 6,
+          "seconds": 0.0288
+        },
+        {
+          "cell": 8,
+          "seconds": 0.0077
+        },
+        {
+          "cell": 10,
+          "seconds": 0.0128
+        },
+        {
+          "cell": 12,
+          "seconds": 0.0859
+        },
+        {
+          "cell": 14,
+          "seconds": 0.0327
+        },
+        {
+          "cell": 16,
+          "seconds": 0.0309
+        },
+        {
+          "cell": 17,
+          "seconds": 0.0133
+        },
+        {
+          "cell": 19,
+          "seconds": 0.1115
+        },
+        {
+          "cell": 20,
+          "seconds": 0.0382
+        },
+        {
+          "cell": 22,
+          "seconds": 0.0349
+        },
+        {
+          "cell": 24,
+          "seconds": 0.057
+        },
+        {
+          "cell": 26,
+          "seconds": 0.0411
+        },
+        {
+          "cell": 28,
+          "seconds": 22.9357
+        },
+        {
+          "cell": 30,
+          "seconds": 0.029
+        },
+        {
+          "cell": 32,
+          "seconds": 0.0211
+        },
+        {
+          "cell": 34,
+          "seconds": 0.0629
+        }
+      ],
+      "rich_report_verified": true,
+      "source_sha256": "e0dc332df31b73107666c07e50775784ab57c8f4f274c9a82e6a9ed7ea514de7"
+    },
+    {
+      "notebook": "GettingStarted-Symbolic.ipynb",
+      "scenario": null,
+      "code_cells_executed": 6,
+      "all_passed": true,
+      "seconds": 0.737,
+      "cell_timings": [
+        {
+          "cell": 3,
+          "seconds": 0.2116
+        },
+        {
+          "cell": 5,
+          "seconds": 0.0169
+        },
+        {
+          "cell": 7,
+          "seconds": 0.2976
+        },
+        {
+          "cell": 9,
+          "seconds": 0.0204
+        },
+        {
+          "cell": 11,
+          "seconds": 0.1157
+        },
+        {
+          "cell": 13,
+          "seconds": 0.0719
+        }
+      ],
+      "rich_report_verified": true,
+      "source_sha256": "32495eaeca8f4e7f0c8bacd8a0957d996b2387409bb1806212272b86500e4432"
+    },
+    {
+      "notebook": "MyExamples-Symbolic.ipynb",
+      "scenario": null,
+      "code_cells_executed": 6,
+      "all_passed": true,
+      "seconds": 0.672,
+      "cell_timings": [
+        {
+          "cell": 3,
+          "seconds": 0.1826
+        },
+        {
+          "cell": 5,
+          "seconds": 0.017
+        },
+        {
+          "cell": 7,
+          "seconds": 0.2993
+        },
+        {
+          "cell": 9,
+          "seconds": 0.0257
+        },
+        {
+          "cell": 11,
+          "seconds": 0.0867
+        },
+        {
+          "cell": 13,
+          "seconds": 0.0573
+        }
+      ],
+      "rich_report_verified": true,
+      "source_sha256": "14dc12603af2dd00a7761585109de97c6cff257c424ae4fa35e320a9396e2ffc"
+    },
+    {
+      "notebook": "PartialReduction-Example.ipynb",
+      "scenario": null,
+      "code_cells_executed": 6,
+      "all_passed": true,
+      "seconds": 0.71,
+      "cell_timings": [
+        {
+          "cell": 2,
+          "seconds": 0.209
+        },
+        {
+          "cell": 3,
+          "seconds": 0.0162
+        },
+        {
+          "cell": 4,
+          "seconds": 0.3278
+        },
+        {
+          "cell": 5,
+          "seconds": 0.0201
+        },
+        {
+          "cell": 6,
+          "seconds": 0.0787
+        },
+        {
+          "cell": 7,
+          "seconds": 0.0559
+        }
+      ],
+      "rich_report_verified": true,
+      "source_sha256": "b7dbc8d4869eec6d98283b3165951fede305994d17ab15a928a6d20ccea96212"
+    },
+    {
+      "notebook": "Counterexample-J2.ipynb",
+      "scenario": null,
+      "code_cells_executed": 2,
+      "all_passed": true,
+      "seconds": 0.28,
+      "cell_timings": [
+        {
+          "cell": 2,
+          "seconds": 0.2006
+        },
+        {
+          "cell": 3,
+          "seconds": 0.0786
+        }
+      ],
+      "rich_report_verified": true,
+      "source_sha256": "d22b699515a267921ea4252621e499b36aa49f2829718cbf53085ad0d50c2c47"
+    },
+    {
+      "notebook": "GettingStarted.ipynb",
+      "scenario": null,
+      "code_cells_executed": 18,
+      "all_passed": true,
+      "seconds": 20.956,
+      "cell_timings": [
+        {
+          "cell": 2,
+          "seconds": 0.2621
+        },
+        {
+          "cell": 4,
+          "seconds": 0.0025
+        },
+        {
+          "cell": 6,
+          "seconds": 0.0271
+        },
+        {
+          "cell": 8,
+          "seconds": 0.008
+        },
+        {
+          "cell": 10,
+          "seconds": 0.0146
+        },
+        {
+          "cell": 12,
+          "seconds": 0.0897
+        },
+        {
+          "cell": 14,
+          "seconds": 0.0334
+        },
+        {
+          "cell": 16,
+          "seconds": 0.0347
+        },
+        {
+          "cell": 17,
+          "seconds": 0.0165
+        },
+        {
+          "cell": 19,
+          "seconds": 0.108
+        },
+        {
+          "cell": 20,
+          "seconds": 0.0405
+        },
+        {
+          "cell": 22,
+          "seconds": 0.0385
+        },
+        {
+          "cell": 24,
+          "seconds": 0.0569
+        },
+        {
+          "cell": 26,
+          "seconds": 0.0489
+        },
+        {
+          "cell": 28,
+          "seconds": 20.0608
+        },
+        {
+          "cell": 30,
+          "seconds": 0.0284
+        },
+        {
+          "cell": 32,
+          "seconds": 0.0201
+        },
+        {
+          "cell": 34,
+          "seconds": 0.0568
+        }
+      ],
+      "rich_report_verified": true,
+      "source_sha256": "9aa579c84b3a6fc36d063a46438b1cc9ae2e0e3d19b315b89232b22593d686c5"
+    },
+    {
+      "notebook": "MyExamples-Symbolic.ipynb",
+      "scenario": "scalar",
+      "code_cells_executed": 6,
+      "all_passed": true,
+      "seconds": 0.31,
+      "cell_timings": [
+        {
+          "cell": 3,
+          "seconds": 0.207
+        },
+        {
+          "cell": 5,
+          "seconds": 0.0239
+        },
+        {
+          "cell": 7,
+          "seconds": 0.0112
+        },
+        {
+          "cell": 9,
+          "seconds": 0.0068
+        },
+        {
+          "cell": 11,
+          "seconds": 0.004
+        },
+        {
+          "cell": 13,
+          "seconds": 0.0566
+        }
+      ],
+      "rich_report_verified": true,
+      "source_sha256": "14dc12603af2dd00a7761585109de97c6cff257c424ae4fa35e320a9396e2ffc"
+    },
+    {
+      "notebook": "MyExamples-Symbolic.ipynb",
+      "scenario": "nonscalar",
+      "code_cells_executed": 6,
+      "all_passed": true,
+      "seconds": 0.39,
+      "cell_timings": [
+        {
+          "cell": 3,
+          "seconds": 0.194
+        },
+        {
+          "cell": 5,
+          "seconds": 0.0191
+        },
+        {
+          "cell": 7,
+          "seconds": 0.0786
+        },
+        {
+          "cell": 9,
+          "seconds": 0.0143
+        },
+        {
+          "cell": 11,
+          "seconds": 0.0113
+        },
+        {
+          "cell": 13,
+          "seconds": 0.0725
+        }
+      ],
+      "rich_report_verified": true,
+      "source_sha256": "14dc12603af2dd00a7761585109de97c6cff257c424ae4fa35e320a9396e2ffc"
+    },
+    {
+      "notebook": "MyExamples-Symbolic.ipynb",
+      "scenario": "new-coefficients",
+      "code_cells_executed": 6,
+      "all_passed": true,
+      "seconds": 0.3,
+      "cell_timings": [
+        {
+          "cell": 3,
+          "seconds": 0.1846
+        },
+        {
+          "cell": 5,
+          "seconds": 0.0005
+        },
+        {
+          "cell": 7,
+          "seconds": 0.037
+        },
+        {
+          "cell": 9,
+          "seconds": 0.0052
+        },
+        {
+          "cell": 11,
+          "seconds": 0.006
+        },
+        {
+          "cell": 13,
+          "seconds": 0.0658
+        }
+      ],
+      "rich_report_verified": true,
+      "source_sha256": "14dc12603af2dd00a7761585109de97c6cff257c424ae4fa35e320a9396e2ffc"
+    },
+    {
+      "notebook": "MyExamples-Symbolic.ipynb",
+      "scenario": "invalid",
+      "code_cells_executed": 6,
+      "all_passed": true,
+      "seconds": 0.282,
+      "cell_timings": [
+        {
+          "cell": 3,
+          "seconds": 0.1993
+        },
+        {
+          "cell": 5,
+          "seconds": 0.0166
+        },
+        {
+          "cell": 7,
+          "seconds": 0.0045
+        },
+        {
+          "cell": 9,
+          "seconds": 0.0005
+        },
+        {
+          "cell": 11,
+          "seconds": 0.0005
+        },
+        {
+          "cell": 13,
+          "seconds": 0.0606
+        }
+      ],
+      "rich_report_verified": true,
+      "source_sha256": "14dc12603af2dd00a7761585109de97c6cff257c424ae4fa35e320a9396e2ffc"
+    }
+  ],
+  "code_cells_executed": 80,
+  "all_passed": true
+}

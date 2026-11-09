@@ -1,0 +1,400 @@
+<!DOCTYPE html>
+
+<html>
+    <head>
+        <base href="./">
+
+        <title>&#x1D461;-Ext Explorer</title>
+
+
+        <!-- https://realfavicongenerator.net -->
+        <link rel="icon" type="image/png" href="./img/favicon-96x96.png" sizes="96x96" />
+        <link rel="icon" type="image/svg+xml" href="./img/favicon.svg" />
+        <link rel="shortcut icon" href="./img/favicon.ico" />
+        <link rel="apple-touch-icon" sizes="180x180" href="./img/apple-touch-icon.png" />
+        <link rel="manifest" href="./img/site.webmanifest" />
+
+        
+        <script src="./lib/compute-engine.js"></script>
+        <script src="./lib/mathlive.js"></script>
+        <script src="./lib/node-bundle.js"></script>
+        
+        <script src="./lib/popper.min.js"></script>
+        <script src="./lib/tippy-bundle.umd.min.js"></script>
+
+        <link rel="stylesheet" href="./src/app.css">
+
+    </head>
+
+    <body>
+        <div class="reduction_pop_up">
+            <math-div class="reduction_pop_up_inner"></math-div>
+        </div>
+
+        <div style="width:100%;">
+            <div id="header-wrapper">
+                <div id="header">
+                    <table >
+                        <tr>
+                            <td style="width:33%; text-align: left; vertical-align: middle;" class="header_col">
+                                <table>
+                                    <tr>
+                                        <td><math-span class="input_desc">t\text{-Ext Explorer}</math-span></td>
+                                        <td><span style="display:none; color:blue; cursor:pointer; margin-left:10px; margin-right:10px;" id="options-button">Options</span></td>
+                                        <td><span style="margin-left:10px; display:inline-block; color:blue; cursor:pointer" id="examples-button">Examples</span></td>
+                                        <td><a target="_blank" href="./t-Ext-Explorer-README.pdf" style="margin-left:10px; text-decoration:none; style:inline-block; color:blue; cursor:pointer" id="readme-button">README</a></td>
+                                    </tr>
+                                </table>
+                            </td>
+
+                            <!-- <td style="width:33%; text-align: right;" class="header_col">
+                                <table style="display:inline;">
+                                    <tr>
+                                        <td class="header_col"><table><tr><td><math-div class="input_desc">n_\Phi</math-div></td><td>=</td><td><input step="1" id="n" min="1" type="number" inputmode="numeric" pattern="\d*" /></td></tr></table></td>
+                                        <td class="header_col"><table><tr><td><math-div class="input_desc">d_\Phi</math-div></td><td>=</td><td><input step="1" id="d-for-n" value="1" type="number" inputmode="numeric" pattern="\d*" style="margin-right:10px"/></td></tr></table></td>
+                                        <td class="header_col"><table><tr><td style="border-left: 1.5px solid black;"><math-div class="input_desc">n_\Psi</math-div></td><td>=</td><td><input step="1" id="m" min="1" type="number" inputmode="numeric" pattern="\d*" /></td></tr></table></td>
+                                        <td class="header_col"><table><tr><td><math-div class="input_desc">d_\Psi</math-div></td><td>=</td><td><input step="1" id="d-for-m" value="1" type="number" inputmode="numeric" pattern="\d*" /></td></tr></table></td>
+                                    </tr>
+                                </table>
+                            </td> -->
+
+                            <td style="text-align: right; vertical-align: middle;" class="header_col">
+                                <table style="display: inline;">
+                                    <tr>
+                                        <td><button style="margin-right:10px;" id="reset-button">Reset</button><button style="margin-right:5px;" id="export-button">Export</button></td>
+                                    </tr>
+                                </table>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+
+            <div class="content_wrapper">
+                <div class="content">
+                    <table class="input-table">
+                        <tr><td class="spacer_row_col_very_tiny"></td><td class="spacer_row_col_very_tiny"></td><td class="spacer_row_col_very_tiny"></td></tr>
+                    </table>
+
+                    <table style="width:100%;" class="input-table">
+                        <tr>
+                            <td style="text-align:left;">
+                                <div class="">Program computes <math-span>\text{Ext}_0^1(\Phi,\Psi)</math-span>, <math-span>\text{Ext}^1(\Phi,\Psi)</math-span> as well as the maps in the following exact sequence:<div>
+<math-div class="module_name">\[
+ 0\longrightarrow \Ext_0^1(\Phi,\Psi)
+ \xrightarrow{\ K\ }\Ext^1((\Phi,\Psi)
+ \xrightarrow{\ P\ }\coker D
+ \longrightarrow0
+\]</math-div>
+                            </td>
+                        </tr>
+                    </table>
+
+                    <table style="width:unset;" class="input-table">
+                        <tr>
+                            <td style="white-space:nowrap; text-align:right;">
+                                <div class="module_name">Characteristic:</div>
+                            </td>
+
+                            <td colspan=1 class="equation_cell" style="padding-right:5px;">
+                                <div class="checkbox_container" style="margin:20px; margin-top:10px; margin-bottom: 10px;">
+                                    <input type="checkbox" id="execute_symbolically" name="execute_symbolically">
+                                    <label for="execute_symbolically" class="module_name" style="font-weight: bold;">None, else...</label>
+                                </div>
+                            </td>
+                            <td colspan=1 class="equation_cell" style="padding-right:5px;">
+                                <div style="margin:20px; margin-top:10px; margin-bottom: 10px;">
+                                    <math-span style='display:inline-block' class="module_name">\text{prime=}</math-span><input class="characteristic_input" step="1" id="prime_characteristic" value="" type="number" inputmode="numeric" pattern="\d*" style=""/>
+                                </div>
+                            </td>
+                            <td colspan=1 class="equation_cell" style="padding-right:5px;">
+                                <div style="margin:20px; margin-top:10px; margin-bottom: 10px;">
+                                    <math-span style='display:inline-block' class="module_name">\text{n=}</math-span><input class="characteristic_input" step="1" id="extension_degree" value="" type="number" inputmode="numeric" pattern="\d*" style=""/>
+                                </div>
+                            </td>
+                        </tr>
+                    
+                    </table>
+                    <table class="input-table">
+                        <tr><td class="spacer_row_col_very_tiny"></td><td class="spacer_row_col_very_tiny"></td><td class="spacer_row_col_very_tiny"></td></tr>
+                    </table>
+                    <table class="input-table">
+                        <tr>
+                            <td style="white-space:nowrap; text-align:right;">
+                                <math-span style='margin-bottom:24px; display:inline-block' class="module_name">\Phi</math-span><input class="d_input" step="1" id="d-for-n" value="1" type="number" inputmode="numeric" pattern="\d*" style=""/><math-span style='display:inline-block' class="module_name">=</math-span>
+                                <br>
+                                <button style="display:inline-block; margin-right:10px;" id="add-term-button-0">Add Term</button>
+                            </td>
+                            <td colspan=1 class="equation_cell" style="width:100%; padding-right:5px;">
+                                <div class="equation_wrapper">
+                                    <math-field style="" id="equation-0" class="equation"></math-field>
+                                </div>
+                            </td>
+                            <td colspan=1 class="equation_simplified_wrapper" style="width:0%;">
+                                <math-span id="equation-0-simplified"></math-span>
+                            </td>
+                        </tr>
+                    
+                    </table>
+                    <table class="input-table">
+                        <tr><td class="spacer_row_col_very_tiny"></td><td class="spacer_row_col_very_tiny"></td><td class="spacer_row_col_very_tiny"></td></tr>
+                    </table>
+                    <table class="input-table">
+                        <tr>
+                            <td style="white-space:nowrap; text-align:right;">
+                                <math-span style='display:inline-block' class="module_name">\Phi_t\hspace{5px}\text{LaTeX:}</math-span>
+                            </td>
+                            <td colspan=2 style="width:100%;">
+                                <div class="textarea-container">
+                                    <textarea id="latex-0" style="min-height:50px;" class="latex"></textarea>
+                                    <div class="button-group">
+                                        <button id="latex-0-copy" type="button">Copy</button>
+                                        <button id="latex-0-clear" type="button">Clear</button>
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+                    </table>
+                    <table class="input-table">
+                        <tr>
+                            <td style="white-space:nowrap; text-align:right;">
+                                <math-span style='display:inline-block; margin-bottom:24px;' class="module_name">\Psi</math-span><input class="d_input" step="1" id="d-for-m" value="1" type="number" inputmode="numeric" pattern="\d*" /><math-span style='display:inline-block' class="module_name">=</math-span>
+                                <br>
+                                <button style="display:inline-block; margin-right:10px;" id="add-term-button-1">Add Term</button>
+                            </td>
+                            <td colspan=1 class="equation_cell" style="width:100%; padding-right:5px;">
+                                <div class="equation_wrapper"><math-field style="" id="equation-1" class="equation"></math-field></div>
+                            </td>
+                            <td colspan=1 class="equation_simplified_wrapper" style="width:0%;">
+                                <math-span id="equation-1-simplified"></math-span>
+                            </td>
+                        </tr>
+                    </table>
+                    <table class="input-table">
+                        <tr><td class="spacer_row_col_very_tiny"></td><td class="spacer_row_col_very_tiny"></td><td class="spacer_row_col_very_tiny"></td></tr>
+                    </table>
+                    <table class="input-table">
+                        <tr>
+                            <td style="white-space:nowrap;text-align:right;">
+                                <math-span style='display:inline-block' class="module_name">\Psi_t\hspace{5px}\text{LaTeX:}</math-span>
+                            </td>
+                            <td colspan=2 style="width:100%;">
+                                <div class="textarea-container">
+                                    <textarea id="latex-1" style="min-height:50px;" class="latex"></textarea>
+                                    <div class="button-group">
+                                        <button id="latex-1-copy" type="button">Copy</button>
+                                        <button id="latex-1-clear" type="button">Clear</button>
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+                    
+                    </table>
+                    <table class="input-table">
+
+                        <!-- <tr>
+                            <td style="white-space:nowrap; width:0%; text-align:right;">
+                                <div class="module_name">Simplified:</div>
+                            </td>
+                            <td colspan=1 style="vertical-align:top; width:50%;  padding-right: 8px;">
+                                <math-field id="equation-0-simplified" class="equation"></math-field>
+                            </td>
+                            <td colspan=1 style="vertical-align:top; width:50%; position: relative;">
+                                <div class="textarea-container-auto-expand">
+                                    <textarea id="latex-0-simplified" style='height:100%; resize: none;' class="latex"></textarea>
+                                    <div class="button-group">
+                                        <button id="latex-0-simplified-copy" type="button">Copy</button>
+                                        <button id="latex-0-simplified-clear" type="button">Clear</button>
+                                    </div>
+                                </div>
+                            </td>
+                        </tr> -->
+                        <!-- <tr><td class="spacer_row_col_very_tiny"></td><td class="spacer_row_col_very_tiny"></td><td class="spacer_row_col_very_tiny"></td></tr> -->
+
+                        <tr>
+                            <td style="white-space:nowrap; text-align:right;">
+                                <div class="module_name">Input Errors:</div>
+                            </td>
+                            <td colspan=2 style="width:100%;">
+                                <pre id="results-0"><ul></ul></pre>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <table style="width:100%;">
+            <tr><td>
+                <div id="output-wrapper">
+                    <div id="output" style="overflow-x: scroll; overflow-y: hidden;">
+                        <table id="output-inner" style="">
+                            <tr style="display:none;">
+                                <td colspan=6 style="white-space:nowrap; width:0%; text-align:left;">
+                                    <math-span class="result_name">\text{Tests for}\hspace{5px}\tau c = c^q \tau\hspace{5px}\text{variations}</math-span>
+                                </td>
+                            </tr>
+
+                            <tr style="display:none;">
+                                <td class="results_row" colspan=6 style="vertical-align:bottom; width:100%;">
+                                    <div id="results-unit-tests">
+                                        
+                                    </div>
+                                </td>
+                            </tr>
+
+                            <!-- <tr class=""><td colspan=6 class="spacer_row_col_small"><div class=""></div></td></tr> -->
+
+                            <tr class="">
+                                <td colspan=6 style="white-space:nowrap; width:0%; text-align:left;">
+                                    <span id="rightmost-basis-title" class="result_name">Jump Matrix</span>
+                                </td>
+                            </tr>
+
+                            <tr class=""><td colspan=6 class="spacer_row_col_small"></td></tr>
+
+                            <tr class="">
+                                <td class="results_row" colspan=6 style="vertical-align:bottom; width:100%;">
+                                    <table>
+                                        <tr>
+                                            <!-- <td style="white-space:nowrap; width:0%; text-align:right;">
+                                                <math-span class="module_name">Aux =</math-span>
+                                            </td>
+                                            <td >
+                                                <div id="results-2">
+                                                    
+                                                </div>
+                                            </td> -->
+
+                                            <td style="white-space:nowrap; width:0%; text-align:right;">
+                                                <math-span style="font-weight: normal;" class="module_name">\hspace{8.12px} C =</math-span>
+                                            </td>
+                                            <td style="vertical-align:bottom; ">
+                                                <div id="results-3">
+                                                    
+                                                </div>
+                                            </td>
+                                            <td style="white-space:nowrap; width:0%; text-align:right;">
+                                                <math-span style="font-weight: normal;"class="module_name">, \hspace{8.12px} $C^{-1}$ =</math-span>
+                                            </td>
+                                            <td style="vertical-align:bottom; width:100%;">
+                                                <div id="results-4">
+                                                    
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </td>
+                            </tr>
+
+
+                            <tr class=""><td colspan=6 class="spacer_row_col_small"><div class=""></div></td></tr>
+
+                            <tr class="intermediate_output_related">
+                                <td colspan=6 style="white-space:nowrap; width:0%; text-align:left;">
+                                    <span id="preprocessing-title" class="result_name">Preprocessing</span>
+                                </td>
+                            </tr>
+
+                            <tr class="intermediate_output_related"><td colspan=6 class="spacer_row_col_tiny"></td></tr>
+
+                            <tr class="preprocessing_related intermediate_output_related">
+                                <td colspan=6 style="white-space:nowrap; width:0%; text-align:left;">
+                                    <math-span class="result_name result_name_unbolded">$E_{i,j}$</math-span>
+                                </td>
+                            </tr>
+
+                            <tr class="preprocessing_related intermediate_output_related"><td colspan=6 class="spacer_row_col_small"></td></tr>
+
+                            <tr class="preprocessing_related intermediate_output_related">
+                                <td class="results_row" colspan=6 style="vertical-align:bottom; width:100%;">
+                                    <div id="results-5">
+                                        
+                                    </div>
+                                </td>
+                            </tr>
+
+                            <tr class="preprocessing_related intermediate_output_related"><td colspan=6 class="spacer_row_col"><div class="spacer_row_col_inner"></div></td></tr>
+
+                            <tr class="preprocessing_related intermediate_output_related">
+                                <td colspan=6 style="white-space:nowrap; width:0%; text-align:left;">
+                                    <math-span class="result_name result_name_unbolded">$A_{i,j}$ = \mu\cdot$E_{i,j}$\cdot$U^{-1}$</math-span>
+                                </td>
+                            </tr>
+
+                            <tr class="preprocessing_related intermediate_output_related"><td colspan=6 class="spacer_row_col_small"></td></tr>
+
+                            <tr class="preprocessing_related intermediate_output_related">
+                                <td class="results_row" colspan=6 style="vertical-align:bottom; width:100%;">
+                                    <div id="results-a-matrices">
+                                        
+                                    </div>
+                                </td>
+                            </tr>
+
+                            <tr class="preprocessing_related intermediate_output_related"><td colspan=6 class="spacer_row_col"><div class="spacer_row_col_inner"></div></td></tr>
+
+                            <tr class="preprocessing_related intermediate_output_related">
+                                <td colspan=6 style="white-space:nowrap; width:0%; text-align:left;">
+                                    <math-span class="result_name result_name_unbolded">$A_{i,j}$\cdot\Phi_t - \Psi_t\cdot$A_{i,j}$</math-span>
+                                </td>
+                            </tr>
+
+                            <tr class="preprocessing_related intermediate_output_related"><td colspan=6 class="spacer_row_col_tiny"></td></tr>
+
+                            <tr class="preprocessing_related intermediate_output_related">
+                                <td class="results_row" colspan=6 style="vertical-align:bottom; width:100%;">
+                                    <div style="" id="results-multiply-by-a">
+                                        
+                                    </div>
+                                </td>
+                            </tr>
+
+                            <tr class="intermediate_output_related"><td colspan=6 class="spacer_row_col"><div class=""></div></td></tr>
+
+
+                            <tr class="intermediate_output_related">
+                                <td colspan=6 style="white-space:nowrap; width:0%; text-align:left;">
+                                    <span id="" class="result_name">Reduction Steps</span>
+                                </td>
+                            </tr>
+
+                            <tr class="intermediate_output_related"><td colspan=6 class="spacer_row_col_small"><div class=""></div></td></tr>
+
+                            <tr class="intermediate_output_related">
+                                <td class="results_row" colspan=6 style="vertical-align:bottom; width:100%;">
+                                    <div id="results-e-matrices-by-degrees">
+                                        
+                                    </div>
+                                </td>
+                            </tr>
+
+                            <tr class="intermediate_output_related"><td colspan=6 class="spacer_row_col"><div class=""></div></td></tr>
+
+                            <tr id="metrics-row">
+                                <td colspan=6 style="white-space:nowrap; width:0%; text-align:left;">
+                                    <span id='metrics-title' class="result_name">Metrics</span>
+                                    <span id='metrics-title-cached_status'></span>
+                                </td>
+                            </tr>
+
+                            <tr><td colspan=6 class="spacer_row_col_tiny"></td></tr>
+
+                            <tr>
+                                <td class="results_row" colspan=6 style="vertical-align:bottom; width:100%;">
+                                    <div id="metrics">
+
+                                    </div>
+                                </td>
+                            </tr>
+
+                            <!-- <tr><td colspan=6 class="spacer_row_col"><div class="spacer_row_col_inner"></div></td></tr> -->
+                        </table>
+                    </div>
+                </div>
+            </td></tr>
+        </table>
+    </body>
+
+    <script src="./src/loader.js?v=3"> </script>
+</html>

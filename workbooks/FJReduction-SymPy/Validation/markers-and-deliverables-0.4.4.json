@@ -1,0 +1,65 @@
+{
+  "language": "English",
+  "source_markers": [
+    {
+      "source": "fj_sympy/sequence.py",
+      "begin_end_pairs": 4,
+      "balanced": true
+    },
+    {
+      "source": "fj_sympy/reduction.py",
+      "begin_end_pairs": 1,
+      "balanced": true
+    },
+    {
+      "source": "fj_sympy/__init__.py",
+      "begin_end_pairs": 3,
+      "balanced": true
+    },
+    {
+      "source": "fj_sympy/example_reports.py",
+      "begin_end_pairs": 1,
+      "balanced": true
+    }
+  ],
+  "notebooks": [
+    {
+      "notebook": "GettingStarted-Concrete.ipynb",
+      "code_cells": 18,
+      "executed": true,
+      "Ext0_markers": true
+    },
+    {
+      "notebook": "GettingStarted.ipynb",
+      "code_cells": 18,
+      "executed": true,
+      "Ext0_markers": true
+    },
+    {
+      "notebook": "GettingStarted-Symbolic.ipynb",
+      "code_cells": 6,
+      "executed": true,
+      "Ext0_markers": true
+    },
+    {
+      "notebook": "Counterexample-J2.ipynb",
+      "code_cells": 2,
+      "executed": true,
+      "Ext0_markers": true
+    },
+    {
+      "notebook": "PartialReduction-Example.ipynb",
+      "code_cells": 6,
+      "executed": true,
+      "Ext0_markers": true
+    },
+    {
+      "notebook": "MyExamples-Symbolic.ipynb",
+      "code_cells": 6,
+      "executed": true,
+      "Ext0_markers": true
+    }
+  ],
+  "article_sha256": "7eba4df39dca1959a95d4594246673c3a243835feff2f2ba41b032809d129402",
+  "all_passed": true
+}

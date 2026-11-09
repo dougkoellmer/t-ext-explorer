@@ -1,0 +1,11 @@
+{
+  "baseline": "0.4.0 symbolic package",
+  "comparison": "all pre-existing top-level function/class executable ASTs; comments, docstrings and version text normalized",
+  "checks": {
+    "fj_sympy/sequence.py": true,
+    "fj_sympy/reduction.py": true,
+    "fj_sympy/__init__.py": true,
+    "fj_sympy/ore.py": true
+  },
+  "all_passed": true
+}

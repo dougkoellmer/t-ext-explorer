@@ -1,0 +1,18 @@
+# Some libraries that ended up not being used.
+# lark==1.3.1
+# antlr4-python3-runtime==4.7.2
+# latex2sympy2==1.9.1
+
+
+# Before pulling in CompatibleBasis.py (which uses sage), this project was using 1.14.0,
+# probably just because it was latest at the time, rather than any specific feature or fix
+# in that version. Sage uses sympy version 1.13.2 but it shouldn't be an issue.
+sympy==1.14.0
+latex2sympy2-extended==1.11.0
+
+# These two below are pulled in by latex2sympy2-extended==1.11.0:
+# antlr4-python3-runtime==4.13.2
+# mpmath==1.3.0
+
+# Following command(s) must be done one time if installing into Sage locally:
+# sage -pip install latex2sympy2-extended==1.11.0

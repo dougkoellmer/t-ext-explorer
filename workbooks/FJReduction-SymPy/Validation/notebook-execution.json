@@ -1,0 +1,45 @@
+{
+  "method": "Fresh in-process IPython shells with captured rich display",
+  "jupyter_browser_ui_checked": false,
+  "results": [
+    {
+      "notebook": "GettingStarted-Concrete.ipynb",
+      "code_cells": 16,
+      "all_passed": true,
+      "elapsed_seconds": 19.013,
+      "sha256": "d6b28fbc74322e2d73a734ec7e9ebb670e4848bbd5cb90e6945e2ab172171ff1"
+    },
+    {
+      "notebook": "MyExamples-Symbolic.ipynb",
+      "code_cells": 11,
+      "all_passed": true,
+      "elapsed_seconds": 1.659,
+      "sha256": "bd8ebfb789e7bc5c0d47dcbcfa2253fa985636fce7e1f832af50a2c9c987e562"
+    },
+    {
+      "notebook": "PartialReduction-Example.ipynb",
+      "code_cells": 1,
+      "all_passed": true,
+      "elapsed_seconds": 0.381,
+      "sha256": "4303fc1269472dd976417c37895c7a921ddec96c7364c744fb964ac881d23ab6"
+    },
+    {
+      "notebook": "MyExamples-Symbolic.ipynb",
+      "code_cells": 11,
+      "all_passed": true,
+      "elapsed_seconds": 1.227,
+      "sha256": "bd8ebfb789e7bc5c0d47dcbcfa2253fa985636fce7e1f832af50a2c9c987e562",
+      "scenario": "Only Phi/Psi changed; undeclared symbols u,v discovered automatically"
+    },
+    {
+      "notebook": "MyExamples-Symbolic.ipynb",
+      "code_cells": 11,
+      "all_passed": true,
+      "elapsed_seconds": 1.401,
+      "sha256": "bd8ebfb789e7bc5c0d47dcbcfa2253fa985636fce7e1f832af50a2c9c987e562",
+      "scenario": "Only Phi/Psi changed; nonscalar quotient with matching J2 nilpotents"
+    }
+  ],
+  "total_executed_code_cells": 50,
+  "all_passed": true
+}
