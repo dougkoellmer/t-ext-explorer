@@ -490,10 +490,16 @@ function getModuleNameHtml(ordinal) {
     }
 }
 
-function fitText(el, largeAsPossible) {
+function fitTextSimple(elem) {
+    var fontSizeString = window.getComputedStyle(elem).getPropertyValue('font-size');
+    var fontSizeInPixels = parseFloat(fontSizeString);
+    fitText(elem, true, fontSizeInPixels);
+}
+
+function fitText(el, largeAsPossible, fontSize = R_MATRIX_CELL_SIZE_PX) {
   const parent = el.parentElement;
   
-  var baseFontSize = largeAsPossible ? R_MATRIX_CELL_SIZE_PX : R_MATRIX_CELL_SIZE_PX/2;
+  var baseFontSize = largeAsPossible ? fontSize : fontSize/2;
   // Reset font size to measure the native un-clamped text width
   el.style.fontSize = baseFontSize+'px'; 
   
@@ -514,85 +520,6 @@ function fitText(el, largeAsPossible) {
   // Set the precise dynamic font size (bounded by 100px max)
   const idealSize = Math.min(baseFontSize, Math.floor(baseFontSize * ratio));
   el.style.fontSize = `${idealSize}px`;
-}
-
-function tipsyGravityCallback() {
-
-    $document = $(document);
-    $window = $(window);
-
-    var tagMaxWidth = 500;
-    var tagMaxHeight = 400;
-
-    var margin = 0;
-    var prefer = 'nw';
-
-    var dir = {ns: prefer[0], ew: (prefer.length > 1 ? prefer[1] : false)};
-    var boundTop = $document.scrollTop() + margin;
-    var boundLeft = $document.scrollLeft() + margin;
-    var $this = $(this);
-
-    var hitNorth = false;
-    var hitSouth = false;
-
-    if ( ($this.offset().top - tagMaxHeight ) < boundTop) {
-        hitNorth = true;
-        dir.ns = 'n';
-    }
-
-    if ($this.offset().left < boundLeft) {
-        dir.ew = 'w';
-    }
-
-    if ( ($window.width() + $document.scrollLeft()) - ($this.offset().left + tagMaxWidth) < margin) {
-        dir.ew = 'e';
-    }
-    
-    var toolTipBottom = $this.offset().top + tagMaxHeight;
-    var windowBottom = $window.height() + $document.scrollTop();
-
-    if ( toolTipBottom > windowBottom ) {
-        hitSouth = true;
-        dir.ns = 's';
-    }
-
-    if ( hitNorth && hitSouth ) {
-        dir.ns = '';
-    } else {
-        
-    }
-
-    var toReturn = dir.ns + (dir.ew ? dir.ew : '');
-
-    console.log("tipsy: " + toReturn);
-
-    return toReturn;
-}
-
-var TOOL_TIP_DELAY_IN_MILLISECONDS = 0;
-
-function newTipsyConfig() {
-    
-    var toReturn = {
-        fade:false,
-        offset:5,
-        gravity:tipsyGravityCallback,
-        opacity:1,
-        trigger:'hover',
-        html: true,
-        live: true,
-        delayIn:TOOL_TIP_DELAY_IN_MILLISECONDS
-    };
-
-    return toReturn;
-}
-
-function applyToolTip(element) {
-    if ( element ) {
-        var tipsyConfig = newTipsyConfig();
-
-        $(element).tipsy(tipsyConfig);
-    }
 }
 
 function shortenRawSeconds(seconds) {

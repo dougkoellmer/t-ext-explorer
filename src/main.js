@@ -124,6 +124,11 @@ function init() {
     // var forceServerCalculation = false;
     // var firstStartUp = true;
     // onInputChanged(forceServerCalculation, firstStartUp);
+
+    var inputErrors = document.getElementById("input-errors-module-name");
+    if ( inputErrors ) {
+        fitTextSimple(inputErrors);
+    }
 }
 
 function initIntegerInputOnlyField(inputElem) {
