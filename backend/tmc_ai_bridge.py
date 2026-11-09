@@ -184,10 +184,6 @@ def run_reduction(phi_psi_input: PhiPsiInput, phi_psi_options: PhiPsiOptions):
     response_dict["P_matrix"] = tmc_view.r_matrix_to_dict(P_Matrix)
     response_dict["S_matrix"] = tmc_view.r_matrix_to_dict(S_Matrix)
 
-    while True:
-        tmc_utils.check_connection_still_alive()
-
-
     rightmost_basis: RightmostBasis = tmc_phi_psi.get_rightmost_basis(phi_module, psi_module)
     initial_analysis: InitialAnalysis = InitialAnalysis(rightmost_basis, None, -1)
 
