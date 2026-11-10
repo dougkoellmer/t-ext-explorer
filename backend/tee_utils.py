@@ -3,12 +3,12 @@ import sympy
 
 import sys
 
-from tmc_consts import *
-from tmc_types import *
+from tee_consts import *
+from tee_types import *
 from itertools import combinations
 import time
-import tmc_consts
-import tmc_view
+import tee_consts
+import tee_view
 
 import threading
 import json
@@ -135,7 +135,7 @@ def check_connection_still_alive():
 
     current_epoch_seconds = int(time.time())
 
-    request_timeout = tmc_consts.get_request_timeout_in_secs(thread_local.response.path, thread_local.is_localhost)
+    request_timeout = tee_consts.get_request_timeout_in_secs(thread_local.response.path, thread_local.is_localhost)
 
     if request_timeout > 0:
         seconds_since_processing_started = current_epoch_seconds - thread_local.processing_start_time
@@ -955,12 +955,12 @@ def convert_matrix_to_simple_terms(matrix:sympy.Matrix, strip_integer_exponents_
         matrix = matrix.applyfunc(lambda matrix_elem: simplify_each_term_in_expression(matrix_elem, strip_integer_exponents_for_symbolic_execution, p, n) )
     except Exception as e:
         print(f"WARNING: Could not simplify matrix, trying per-element simplification instead.")
-        print(f"{tmc_view.matrix_to_latex(matrix)}")
+        print(f"{tee_view.matrix_to_latex(matrix)}")
         hit_error = True
 
     # if hit_error == True:
     #     print(f"post-factored Matrix:")
-    #     print(f"{tmc_view.matrix_to_latex(matrix)}")
+    #     print(f"{tee_view.matrix_to_latex(matrix)}")
     matrix = sympy.expand(matrix)
 
     return matrix

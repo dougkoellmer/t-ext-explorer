@@ -2,12 +2,12 @@
 
 import sympy
 
-from tmc_consts import *
-from tmc_utils import *
-import tmc_utils
+from tee_consts import *
+from tee_utils import *
+import tee_utils
 import copy
-import tmc_phi_psi
-import tmc_ai_bridge
+import tee_phi_psi
+import tee_ai_bridge
 
 import itertools
 
@@ -17,7 +17,7 @@ def roll_dice(sides, start = 1):
     return random.randint(start, sides)
 
 def validate_simplification(expression, expected_result_expression):
-    simplified_expression = tmc_utils.simplify_each_term_in_expression(expression)
+    simplified_expression = tee_utils.simplify_each_term_in_expression(expression)
 
     latex_to_return = ""
 
@@ -212,7 +212,7 @@ def generate_random_phi_psi_pair(phi_psi_options: PhiPsiOptions) -> PhiPsiInput:
     phi_expr = generate_random_t_module(phi_matrix_count, d_phi, phi_psi_options)
     psi_expr = generate_random_t_module(psi_matrix_count, d_psi, phi_psi_options)
 
-    phi_psi_input = tmc_phi_psi.validate_input(phi_expr, psi_expr, phi_psi_options)
+    phi_psi_input = tee_phi_psi.validate_input(phi_expr, psi_expr, phi_psi_options)
 
     return phi_psi_input
 
@@ -229,7 +229,7 @@ def fuzz_test_random(phi_psi_options: PhiPsiOptions):
 
     def fuzz_test_random_error(msg, phi_psi_input: PhiPsiInput):
         print("FUZZ ERROR: " + msg)
-        tmc_view.log_input_in_various_ways(phi_psi_input.Phi_module.simplified, phi_psi_input.Psi_module.simplified)
+        tee_view.log_input_in_various_ways(phi_psi_input.Phi_module.simplified, phi_psi_input.Psi_module.simplified)
     
     for i in range(limit):
         try:
@@ -248,18 +248,18 @@ def fuzz_test_random(phi_psi_options: PhiPsiOptions):
         
             if len(phi_psi_input.input_errors) == 0:
                 only_do_ai_reduction = True
-                rightmost_basis = tmc_phi_psi.get_rightmost_basis(phi_module, psi_module)
+                rightmost_basis = tee_phi_psi.get_rightmost_basis(phi_module, psi_module)
 
                 rightmost_basis_expr_for_log = sympy.MatAdd(*phi_module.expanded_matrices, evaluate=False)
 
                 if rightmost_basis is not None:
                     basis_count += 1
 
-                    tmc_view.log_input_in_various_ways(phi_module.simplified, psi_module.simplified)
+                    tee_view.log_input_in_various_ways(phi_module.simplified, psi_module.simplified)
                 
                     if only_do_ai_reduction == True:
 
-                        ai_reduction_output: PhiPsiReductionOutputFromAiCode = tmc_ai_bridge.run_reduction(phi_module, psi_module, phi_psi_options)
+                        ai_reduction_output: PhiPsiReductionOutputFromAiCode = tee_ai_bridge.run_reduction(phi_module, psi_module, phi_psi_options)
 
                         if ai_reduction_output.Ext_Matrix is not None and ai_reduction_output.Ext_Matrix.raw.rows > 0:
                             print("REDUCED")
@@ -268,15 +268,15 @@ def fuzz_test_random(phi_psi_options: PhiPsiOptions):
                             unexpected_error_count = unexpected_error_count + 1
                             fuzz_test_random_error("ai_reduction_output.Ext_matrix came back None/empty", phi_psi_input)
                     else:
-                        phi_psi_reduction_output: PhiPsiReductionOutput = tmc_phi_psi.run_analysis(phi_psi_input, phi_psi_options, rightmost_basis)
+                        phi_psi_reduction_output: PhiPsiReductionOutput = tee_phi_psi.run_analysis(phi_psi_input, phi_psi_options, rightmost_basis)
 
                         if phi_psi_reduction_output is not None:
                             if phi_psi_reduction_output.found_rightmost_basis == True:
 
                                 if phi_psi_reduction_output.Ext_matrix is not None:
                                     # phi_psi_reduction_output.Ext_matrix.raw[0, 0] = -2
-                                    ai_reduction_output: PhiPsiReductionOutputFromAiCode = tmc_ai_bridge.run_reduction(phi_psi_input.Phi_module, phi_psi_input.Psi_module, phi_psi_options)
-                                    match = tmc_ai_bridge.compare_matrices("W_Matrix", phi_psi_reduction_output.Ext_matrix.raw, ai_reduction_output.Ext_Matrix.raw, phi_psi_options)
+                                    ai_reduction_output: PhiPsiReductionOutputFromAiCode = tee_ai_bridge.run_reduction(phi_psi_input.Phi_module, phi_psi_input.Psi_module, phi_psi_options)
+                                    match = tee_ai_bridge.compare_matrices("W_Matrix", phi_psi_reduction_output.Ext_matrix.raw, ai_reduction_output.Ext_Matrix.raw, phi_psi_options)
 
                                     if match == True:
                                         match_count += 1
@@ -349,7 +349,7 @@ def fuzz_test_dimensions(phi_psi_options: PhiPsiOptions):
                     current_time = int(time.time_ns())
                     total_seconds_so_far = (current_time-start_time) / 1e9
                     phi_expr = sympy.MatAdd(*ith_phi_equation, evaluate=False)
-                    phi_module: T_Module = tmc_view.parse_t_module_latex(phi_expr, "Phi", phi_psi_options)
+                    phi_module: T_Module = tee_view.parse_t_module_latex(phi_expr, "Phi", phi_psi_options)
 
                     print(f"FUZZ_LOG Checking for Phi combination {z+1} of {len(ith_phi_equations)}, seconds_running={total_seconds_so_far}, total_count={total_count}, total_errors={unexpected_error_count}, skip_count={skip_count}, total_with_basis={total_that_had_rightmost_basis}")
                     sympy.pprint(phi_expr)
@@ -392,7 +392,7 @@ def fuzz_test_dimensions(phi_psi_options: PhiPsiOptions):
                                 add_thetas_to_diagonal(ith_psi_equation[0])
                                 ith_psi_equation = multiply_matrices_by_tau(ith_psi_equation)
                                 psi_expr = sympy.MatAdd(*ith_psi_equation, evaluate=True)
-                                psi_module = tmc_view.parse_t_module_latex(psi_expr, "Psi", phi_psi_options)
+                                psi_module = tee_view.parse_t_module_latex(psi_expr, "Psi", phi_psi_options)
                                 generated_psi_modules.append(psi_module)
                                 # print("generating_psi")
                             else:
@@ -407,7 +407,7 @@ def fuzz_test_dimensions(phi_psi_options: PhiPsiOptions):
 
                             try:
 
-                                phi_psi_input: PhiPsiInput = tmc_phi_psi.validate_input(phi_module, psi_module, phi_psi_options)
+                                phi_psi_input: PhiPsiInput = tee_phi_psi.validate_input(phi_module, psi_module, phi_psi_options)
 
                                 if len(phi_psi_input.input_errors) > 0:
                                     if phi_module.has_critical_error == False and psi_module.has_critical_error == False:
@@ -428,7 +428,7 @@ def fuzz_test_dimensions(phi_psi_options: PhiPsiOptions):
                                     total_count = total_count + 1
 
                                     only_do_ai_reduction = False
-                                    rightmost_basis = tmc_phi_psi.get_rightmost_basis(phi_module, psi_module)
+                                    rightmost_basis = tee_phi_psi.get_rightmost_basis(phi_module, psi_module)
 
                                     rightmost_basis_expr_for_log = sympy.MatAdd(*phi_module.expanded_matrices, evaluate=False)
 
@@ -437,7 +437,7 @@ def fuzz_test_dimensions(phi_psi_options: PhiPsiOptions):
                                     
                                         if only_do_ai_reduction == True:
 
-                                            ai_reduction_output: PhiPsiReductionOutputFromAiCode = tmc_ai_bridge.run_reduction(phi_module, psi_module, phi_psi_options)
+                                            ai_reduction_output: PhiPsiReductionOutputFromAiCode = tee_ai_bridge.run_reduction(phi_module, psi_module, phi_psi_options)
 
                                             if ai_reduction_output.Ext_Matrix is not None and ai_reduction_output.Ext_Matrix.raw.rows > 0:
                                                 pass
@@ -445,15 +445,15 @@ def fuzz_test_dimensions(phi_psi_options: PhiPsiOptions):
                                                 unexpected_error_count = unexpected_error_count + 1
                                                 print_fuzz_test_error(phi_expr, psi_expr, "ai_reduction_output.Ext_matrix came back None/empty")
                                         else:
-                                            phi_psi_reduction_output: PhiPsiReductionOutput = tmc_phi_psi.run_analysis(phi_psi_input, phi_psi_options, rightmost_basis)
+                                            phi_psi_reduction_output: PhiPsiReductionOutput = tee_phi_psi.run_analysis(phi_psi_input, phi_psi_options, rightmost_basis)
 
                                             if phi_psi_reduction_output is not None:
                                                 if phi_psi_reduction_output.found_rightmost_basis == True:
 
                                                     if phi_psi_reduction_output.Ext_matrix is not None:
                                                         # phi_psi_reduction_output.Ext_matrix.raw[0, 0] = -2
-                                                        ai_reduction_output: PhiPsiReductionOutputFromAiCode = tmc_ai_bridge.run_reduction(phi_psi_input.Phi_module, phi_psi_input.Psi_module, phi_psi_options)
-                                                        match = tmc_ai_bridge.compare_matrices("W_Matrix", phi_psi_reduction_output.Ext_matrix.raw, ai_reduction_output.Ext_Matrix.raw, phi_psi_options)
+                                                        ai_reduction_output: PhiPsiReductionOutputFromAiCode = tee_ai_bridge.run_reduction(phi_psi_input.Phi_module, phi_psi_input.Psi_module, phi_psi_options)
+                                                        match = tee_ai_bridge.compare_matrices("W_Matrix", phi_psi_reduction_output.Ext_matrix.raw, ai_reduction_output.Ext_Matrix.raw, phi_psi_options)
 
                                                         if match == True:
                                                             # print("MATCH!")
@@ -490,16 +490,16 @@ def fuzz_test_dimensions(phi_psi_options: PhiPsiOptions):
 
 
 def compare_output(Phi_latex, Psi_latex):
-    phi_psi_input = tmc_phi_psi.validate_input(Phi_latex, Psi_latex, phi_psi_options)
+    phi_psi_input = tee_phi_psi.validate_input(Phi_latex, Psi_latex, phi_psi_options)
 
-    phi_psi_reduction_output: PhiPsiReductionOutput = tmc_phi_psi.run_analysis(phi_psi_input, phi_psi_options)
+    phi_psi_reduction_output: PhiPsiReductionOutput = tee_phi_psi.run_analysis(phi_psi_input, phi_psi_options)
 
     
     print(f"STARTING MATRIX COMPARISON")
-    ai_reduction: PhiPsiReductionOutputFromAiCode = tmc_ai_bridge.run_reduction(phi_psi_input.Phi_module, phi_psi_input.Psi_module, phi_psi_options)
-    tmc_ai_bridge.compare_matrices("Ext_Matrix", phi_psi_reduction_output.Ext_matrix.raw, ai_reduction.Ext_Matrix.raw, phi_psi_options)
-    # tmc_ai_bridge.compare_matrices("V_Matrix", phi_psi_reduction_output.V_matrix.raw, ai_reduction.V_matrix)
-    # tmc_ai_bridge.compare_matrices("W_V_Matrix", phi_psi_reduction_output.W_V_matrix.raw, ai_reduction.W_V_matrix)
+    ai_reduction: PhiPsiReductionOutputFromAiCode = tee_ai_bridge.run_reduction(phi_psi_input.Phi_module, phi_psi_input.Psi_module, phi_psi_options)
+    tee_ai_bridge.compare_matrices("Ext_Matrix", phi_psi_reduction_output.Ext_matrix.raw, ai_reduction.Ext_Matrix.raw, phi_psi_options)
+    # tee_ai_bridge.compare_matrices("V_Matrix", phi_psi_reduction_output.V_matrix.raw, ai_reduction.V_matrix)
+    # tee_ai_bridge.compare_matrices("W_V_Matrix", phi_psi_reduction_output.W_V_matrix.raw, ai_reduction.W_V_matrix)
     print(f"ENDING MATRIX COMPARISON")
 
 def run_tests():
@@ -515,23 +515,23 @@ def run_tests():
 def run_twist_tests():
 
     p_n_test_expr = C_SYMBOL**Q_SYMBOL**4
-    p_n_test_expr_after = tmc_utils.simplify_twisted_modular(p_n_test_expr, 3, 2)
+    p_n_test_expr_after = tee_utils.simplify_twisted_modular(p_n_test_expr, 3, 2)
     print(f"simplify_twisted_modular: {p_n_test_expr}, {p_n_test_expr_after}")
 
     p_n_test_expr = C_SYMBOL**Q_SYMBOL**2
-    p_n_test_expr_after = tmc_utils.simplify_twisted_modular(p_n_test_expr, 3, 2)
+    p_n_test_expr_after = tee_utils.simplify_twisted_modular(p_n_test_expr, 3, 2)
     print(f"simplify_twisted_modular: {p_n_test_expr}, {p_n_test_expr_after}")
 
     p_n_test_expr = C_SYMBOL**Q_SYMBOL**3
-    p_n_test_expr_after = tmc_utils.simplify_twisted_modular(p_n_test_expr, 3, 2)
+    p_n_test_expr_after = tee_utils.simplify_twisted_modular(p_n_test_expr, 3, 2)
     print(f"simplify_twisted_modular: {p_n_test_expr}, {p_n_test_expr_after}")
 
     p_n_test_expr = C_SYMBOL**(Q_SYMBOL+2)
-    p_n_test_expr_after = tmc_utils.simplify_twisted_modular(p_n_test_expr, 3, 2)
+    p_n_test_expr_after = tee_utils.simplify_twisted_modular(p_n_test_expr, 3, 2)
     print(f"simplify_twisted_modular: {p_n_test_expr}, {p_n_test_expr_after}")
 
     p_n_test_expr = -C_SYMBOL*TAU_SYMBOL**2
-    p_n_test_expr_after = tmc_utils.simplify_twisted_modular(p_n_test_expr, 3, 2)
+    p_n_test_expr_after = tee_utils.simplify_twisted_modular(p_n_test_expr, 3, 2)
     print(f"simplify_twisted_modular: {p_n_test_expr}, {p_n_test_expr_after}")
 
     c_replacement_test = (C_SYMBOL**Q_SYMBOL**2)**Q_SYMBOL**2

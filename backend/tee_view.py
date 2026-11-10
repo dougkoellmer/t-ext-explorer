@@ -14,12 +14,12 @@ from sympy import UnevaluatedExpr
 
 from sympy.core.parameters import evaluate
 
-import tmc_types
-import tmc_utils
-import tmc_ai_bridge
+import tee_types
+import tee_utils
+import tee_ai_bridge
 
-from tmc_consts import *
-from tmc_types import *
+from tee_consts import *
+from tee_types import *
 
 
 LATEX__MATRIX_STRETCH = "\\renewcommand{\\arraystretch}{1.5}"
@@ -298,7 +298,7 @@ def convert_t_module_latex_matrix_to_sympy_matrix(ith_matrix, variant: Variant) 
             # print(f"element_latex={element_latex}, element={element}")
 
             if variant == Variant.VARIANT__DIAGONAL:
-                element = tmc_utils.toggle_commutativity_for_all_symbols(element, False)
+                element = tee_utils.toggle_commutativity_for_all_symbols(element, False)
             
             ith_matrix_symbolic[row_index, col_index] = element
     
@@ -340,9 +340,9 @@ def convert_t_module_latex_list_to_list_of_matrices(t_module_latex_array, varian
     
     return to_return
 
-def parse_t_module_latex(t_module_latex_or_expr, module_name, phi_psi_options: PhiPsiOptions) -> tmc_types.T_Module:
+def parse_t_module_latex(t_module_latex_or_expr, module_name, phi_psi_options: PhiPsiOptions) -> tee_types.T_Module:
 
-    if isinstance(t_module_latex_or_expr, tmc_types.T_Module):
+    if isinstance(t_module_latex_or_expr, tee_types.T_Module):
         return t_module_latex_or_expr
 
     has_critical_error = False
@@ -397,7 +397,7 @@ def parse_t_module_latex(t_module_latex_or_expr, module_name, phi_psi_options: P
 
                 # print(f"module_name={module_name}, t_module_matrix_expanded={t_module_matrix_expanded}")
 
-                expanded_matrices = tmc_utils.expand_t_module_matrix(t_module_matrix_expanded)
+                expanded_matrices = tee_utils.expand_t_module_matrix(t_module_matrix_expanded)
 
                 # print(f"module_name={module_name}, expanded_matrices={expanded_matrices}")
 
@@ -423,7 +423,7 @@ def parse_t_module_latex(t_module_latex_or_expr, module_name, phi_psi_options: P
                             break
 
                     if k == 0:
-                        if tmc_utils.is_valid_first_t_module_matrix(ith_matrix):
+                        if tee_utils.is_valid_first_t_module_matrix(ith_matrix):
                             pass
                         else:
                             parse_errors.append(module_name + " must be nilpotent, i.e. <math-span>(M_0 - \\theta \\cdot I)^d = 0</math-span>")
@@ -452,7 +452,7 @@ def parse_t_module_latex(t_module_latex_or_expr, module_name, phi_psi_options: P
     if t_module_matrix is not None:
         t_module_matrix_as_2d_list = t_module_matrix.tolist()
 
-        t_module_as_ai_input = tmc_ai_bridge.convert_2d_list_to_matrix(t_module_matrix_as_2d_list)
-        t_module_as_ai_input = tmc_utils.toggle_commutativity_for_all_symbols_in_matrix(t_module_as_ai_input, change_to_commutative=True, keep_tau_non_comm=False)
+        t_module_as_ai_input = tee_ai_bridge.convert_2d_list_to_matrix(t_module_matrix_as_2d_list)
+        t_module_as_ai_input = tee_utils.toggle_commutativity_for_all_symbols_in_matrix(t_module_as_ai_input, change_to_commutative=True, keep_tau_non_comm=False)
 
-    return tmc_types.T_Module(d, max_deg, expanded_matrices, t_module_matrix, t_module_matrix_as_2d_list, t_module_as_ai_input, t_module_expression, t_module_expression_simplified, parse_errors, has_critical_error)
+    return tee_types.T_Module(d, max_deg, expanded_matrices, t_module_matrix, t_module_matrix_as_2d_list, t_module_as_ai_input, t_module_expression, t_module_expression_simplified, parse_errors, has_critical_error)

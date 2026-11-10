@@ -2,15 +2,15 @@
 import sympy
 import math
 
-import tmc_view
-import tmc_utils
+import tee_view
+import tee_utils
 
 import traceback
 
-from tmc_consts import *
-from tmc_types import *
-from tmc_utils import *
-from tmc_view import *
+from tee_consts import *
+from tee_types import *
+from tee_utils import *
+from tee_view import *
 
 
 from ai_code.compatible_basis import *
@@ -20,7 +20,7 @@ from ai_code.fields import *
 
 import ai_code.reduce_skew as reduce_skew
 
-import tmc_phi_psi
+import tee_phi_psi
 
 import pprint
 
@@ -66,14 +66,14 @@ def ore_matrix_to_R_matrix(ore_matrix: OreMatrix, phi_psi_options: PhiPsiOptions
 
     raw = raw.replace(TAU_SYMBOL, TAU_SYMBOL_NON_COMM)
     # raw = toggle_commutativity_for_all_symbols_in_matrix(raw, change_to_commutative=True, keep_tau_non_comm=True)
-    raw = raw.applyfunc(tmc_utils.move_tau_to_the_right_without_twist)
+    raw = raw.applyfunc(tee_utils.move_tau_to_the_right_without_twist)
 
     leaf_count = 0
     byte_count = 0
 
     if phi_psi_options.calc_leaf_and_byte_counts == True:
-        leaf_count = tmc_utils.mathematica_leaf_count(raw)
-        byte_count = tmc_utils.mathematica_matrix_byte_count(raw)
+        leaf_count = tee_utils.mathematica_leaf_count(raw)
+        byte_count = tee_utils.mathematica_matrix_byte_count(raw)
 
     total_number_of_reductions_made = -1
     elapsed_time = -1.0
@@ -125,7 +125,7 @@ def run_reduction(phi_psi_input: PhiPsiInput, phi_psi_options: PhiPsiOptions):
     Phi_input = phi_module.as_ai_input
     Psi_input = psi_module.as_ai_input
     
-    response_dict = tmc_view.phi_psi_input_to_dict(phi_psi_input)
+    response_dict = tee_view.phi_psi_input_to_dict(phi_psi_input)
 
     # print("AI REDUCTION")
     # print(f"{Phi_input}")
@@ -177,17 +177,17 @@ def run_reduction(phi_psi_input: PhiPsiInput, phi_psi_options: PhiPsiOptions):
         P_Matrix = ore_matrix_to_R_matrix(P_OreMatrix, phi_psi_options)
         S_Matrix = ore_matrix_to_R_matrix(S_OreMatrix, phi_psi_options)
 
-    response_dict["Ext_matrix"] = tmc_view.r_matrix_to_dict(Ext_Matrix)
-    response_dict["Ext0_matrix"] = tmc_view.r_matrix_to_dict(Ext0_Matrix)
-    response_dict["K_matrix"] = tmc_view.r_matrix_to_dict(K_Matrix)
-    response_dict["R_matrix"] = tmc_view.r_matrix_to_dict(R_MatrixInstance)
-    response_dict["P_matrix"] = tmc_view.r_matrix_to_dict(P_Matrix)
-    response_dict["S_matrix"] = tmc_view.r_matrix_to_dict(S_Matrix)
+    response_dict["Ext_matrix"] = tee_view.r_matrix_to_dict(Ext_Matrix)
+    response_dict["Ext0_matrix"] = tee_view.r_matrix_to_dict(Ext0_Matrix)
+    response_dict["K_matrix"] = tee_view.r_matrix_to_dict(K_Matrix)
+    response_dict["R_matrix"] = tee_view.r_matrix_to_dict(R_MatrixInstance)
+    response_dict["P_matrix"] = tee_view.r_matrix_to_dict(P_Matrix)
+    response_dict["S_matrix"] = tee_view.r_matrix_to_dict(S_Matrix)
 
-    rightmost_basis: RightmostBasis = tmc_phi_psi.get_rightmost_basis(phi_module, psi_module)
+    rightmost_basis: RightmostBasis = tee_phi_psi.get_rightmost_basis(phi_module, psi_module)
     initial_analysis: InitialAnalysis = InitialAnalysis(rightmost_basis, None, -1)
 
-    response_dict = response_dict | tmc_view.initial_analysis_to_dict(initial_analysis, phi_module, psi_module)
+    response_dict = response_dict | tee_view.initial_analysis_to_dict(initial_analysis, phi_module, psi_module)
 
     total_reduction_count = 0
     total_leaf_count = 0

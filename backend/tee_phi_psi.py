@@ -2,16 +2,16 @@
 import sympy
 import math
 
-import tmc_view
-import tmc_utils
-import tmc_ai_bridge
+import tee_view
+import tee_utils
+import tee_ai_bridge
 
 import traceback
 
-from tmc_consts import *
-from tmc_types import *
-from tmc_utils import *
-from tmc_view import *
+from tee_consts import *
+from tee_types import *
+from tee_utils import *
+from tee_view import *
 
 from copy import deepcopy
 
@@ -20,7 +20,7 @@ from sympy.polys.domains import ZZ
 
 import time
 
-def validate_input(Phi_latex_or_expr_or_module: str, Psi_latex_or_expr_or_module: str, phi_psi_options: PhiPsiOptions) -> tmc_types.PhiPsiInput:
+def validate_input(Phi_latex_or_expr_or_module: str, Psi_latex_or_expr_or_module: str, phi_psi_options: PhiPsiOptions) -> tee_types.PhiPsiInput:
     input_errors = []
     module_name_phi = "<math-span>\\Phi</math-span>"
     module_name_psi = "<math-span>\\Psi</math-span>"
@@ -28,19 +28,19 @@ def validate_input(Phi_latex_or_expr_or_module: str, Psi_latex_or_expr_or_module
     # print(f"validating1={Psi_latex_or_expr_or_module}")
 
 
-    Phi_module: T_Module = tmc_view.parse_t_module_latex(Phi_latex_or_expr_or_module, module_name_phi, phi_psi_options)
-    Psi_module: T_Module = tmc_view.parse_t_module_latex(Psi_latex_or_expr_or_module, module_name_psi, phi_psi_options)
+    Phi_module: T_Module = tee_view.parse_t_module_latex(Phi_latex_or_expr_or_module, module_name_phi, phi_psi_options)
+    Psi_module: T_Module = tee_view.parse_t_module_latex(Psi_latex_or_expr_or_module, module_name_psi, phi_psi_options)
 
     
     if Phi_module.max_deg > -1 and Phi_module.max_deg <= 1:
-        if isinstance(Phi_latex_or_expr_or_module, tmc_types.T_Module) == False:
+        if isinstance(Phi_latex_or_expr_or_module, tee_types.T_Module) == False:
             Phi_module.parse_errors.append(f"{module_name_phi} must have degree of at least 2")
         else:
             input_errors.append(f"{module_name_phi} must have degree of at least 2")
         
     
     if Phi_module.max_deg > -1 and Psi_module.max_deg == 0:
-        if isinstance(Psi_latex_or_expr_or_module, tmc_types.T_Module) == False:
+        if isinstance(Psi_latex_or_expr_or_module, tee_types.T_Module) == False:
             Psi_module.parse_errors.append(f"{module_name_psi} must have degree of at least 1")
         else:
             input_errors.append(f"{module_name_phi} must have degree of at least 2")
@@ -50,15 +50,15 @@ def validate_input(Phi_latex_or_expr_or_module: str, Psi_latex_or_expr_or_module
 
     if len(input_errors) > 0:
         is_max_degree_error = True
-        return tmc_types.PhiPsiInput(Phi_module, Psi_module, input_errors, is_max_degree_error)
+        return tee_types.PhiPsiInput(Phi_module, Psi_module, input_errors, is_max_degree_error)
     else:
         if Psi_module.max_deg >= Phi_module.max_deg:
             last_error = f"{module_name_phi} must be of greater degree than {module_name_psi}"
-            if isinstance(Phi_latex_or_expr_or_module, tmc_types.T_Module) == False:
+            if isinstance(Phi_latex_or_expr_or_module, tee_types.T_Module) == False:
                 Phi_module.parse_errors.append(last_error)
             input_errors.append(last_error)
 
-        return tmc_types.PhiPsiInput(Phi_module, Psi_module, input_errors)
+        return tee_types.PhiPsiInput(Phi_module, Psi_module, input_errors)
 
 
 def run_analysis(phi_psi_input: PhiPsiInput, phi_psi_options: PhiPsiOptions, known_rightmost_basis: RightmostBasis = None):
@@ -67,7 +67,7 @@ def run_analysis(phi_psi_input: PhiPsiInput, phi_psi_options: PhiPsiOptions, kno
     Psi_module: T_Module = phi_psi_input.Psi_module
 
     if phi_psi_options.reduce_latex_output == False:
-        response_dict = tmc_view.phi_psi_input_to_dict(phi_psi_input)
+        response_dict = tee_view.phi_psi_input_to_dict(phi_psi_input)
     else:
         response_dict = {}
 
@@ -80,7 +80,7 @@ def run_analysis(phi_psi_input: PhiPsiInput, phi_psi_options: PhiPsiOptions, kno
         return to_return
 
     if phi_psi_options.reduce_log_output == False:
-        tmc_view.log_input_in_various_ways(Phi_module.simplified, Psi_module.simplified)
+        tee_view.log_input_in_various_ways(Phi_module.simplified, Psi_module.simplified)
 
     try:
         initial_analysis: InitialAnalysis = run_initial_analysis(Phi_module, Psi_module, phi_psi_options, known_rightmost_basis)
@@ -107,14 +107,14 @@ def run_analysis(phi_psi_input: PhiPsiInput, phi_psi_options: PhiPsiOptions, kno
             total_byte_count = Ext_matrix.byte_count
 
         if phi_psi_options.reduce_latex_output == False:
-            response_dict = response_dict | tmc_view.initial_analysis_to_dict(initial_analysis, Phi_module, Psi_module)
+            response_dict = response_dict | tee_view.initial_analysis_to_dict(initial_analysis, Phi_module, Psi_module)
 
         if phi_psi_options.reduce_latex_output == False:
-            Ext_matrix_dict = tmc_view.r_matrix_to_dict(Ext_matrix)
+            Ext_matrix_dict = tee_view.r_matrix_to_dict(Ext_matrix)
 
             if phi_psi_options.only_generate_ext == False:
-                V_matrix_dict = tmc_view.r_matrix_to_dict(V_matrix)
-                W_V_matrix_dict = tmc_view.r_matrix_to_dict(W_V_matrix)
+                V_matrix_dict = tee_view.r_matrix_to_dict(V_matrix)
+                W_V_matrix_dict = tee_view.r_matrix_to_dict(W_V_matrix)
         else:
             Ext_matrix_dict = {}
             V_matrix_dict = {}
@@ -151,7 +151,7 @@ def get_rightmost_basis(Phi_module: T_Module, Psi_module: T_Module) -> Rightmost
         if i >= number_of_Psi_matrices:
             matrices_to_use_for_determining_rightmost_basis.append(Phi_module.expanded_matrices[i])
 
-    rightmost_basis: RightmostBasis = tmc_ai_bridge.rightmost_compatible_basis(matrices_to_use_for_determining_rightmost_basis)
+    rightmost_basis: RightmostBasis = tee_ai_bridge.rightmost_compatible_basis(matrices_to_use_for_determining_rightmost_basis)
 
     return rightmost_basis
 
@@ -308,11 +308,11 @@ def get_r_matrix(Phi_module: T_Module, Psi_module: T_Module, initial_analysis: I
                 #     # Already done one or more reductions, which updates the value for `kth_Psi_Eij_c_tau_k`,
                 #     # so need to search afresh for the max degree. 
                 #     preferred_element_ordinal = ongoing_reduction_matrix__max_deg_tuple.zero_based_element_ordinal
-                #     ongoing_reduction_matrix__max_deg_tuple = tmc_utils.get_max_degree_of_tau_in_matrix(ongoing_reduction_matrix, subvariant, Eij_and_Aij_matrices, preferred_element_ordinal)
+                #     ongoing_reduction_matrix__max_deg_tuple = tee_utils.get_max_degree_of_tau_in_matrix(ongoing_reduction_matrix, subvariant, Eij_and_Aij_matrices, preferred_element_ordinal)
 
                 # NEW LOGIC: Always search the matrix fresh for the term to be reduced.
                 require_tau_to_be_rightmost_factor = True
-                ongoing_reduction_matrix__max_deg_tuple = tmc_utils.get_max_degree_of_tau_in_matrix(ongoing_reduction_matrix, require_tau_to_be_rightmost_factor, subvariant, Eij_and_Aij_matrices)
+                ongoing_reduction_matrix__max_deg_tuple = tee_utils.get_max_degree_of_tau_in_matrix(ongoing_reduction_matrix, require_tau_to_be_rightmost_factor, subvariant, Eij_and_Aij_matrices)
 
                 ongoing_reduction_matrix__element_ordinal = ongoing_reduction_matrix__max_deg_tuple.zero_based_element_ordinal
                 ongoing_reduction__Nij = Eij_and_Aij_matrices.Nij_list[ongoing_reduction_matrix__element_ordinal]
@@ -372,7 +372,7 @@ def get_r_matrix(Phi_module: T_Module, Psi_module: T_Module, initial_analysis: I
                             ith_reduction_matrices.append(ongoing_reduction_matrix)
 
                     new_Aij_matrix = MU_SYMBOL_NON_COMM * TAU_SYMBOL_NON_COMM**tau_degree_surplus * Eij_matrix.raw * rightmost_basis.basis_matrix_inverse_non_comm
-                    new_Aij_matrix = new_Aij_matrix.applyfunc(tmc_utils.move_tau_to_the_right_of_other_symbols)
+                    new_Aij_matrix = new_Aij_matrix.applyfunc(tee_utils.move_tau_to_the_right_of_other_symbols)
                     new_Aij_matrix = new_Aij_matrix.applyfunc(lambda matrix_elem: toggle_commutativity_for_all_symbols(matrix_elem, change_to_commutative=True))
 
                     if phi_psi_options.reduce_latex_output == False:
@@ -399,8 +399,8 @@ def get_r_matrix(Phi_module: T_Module, Psi_module: T_Module, initial_analysis: I
                         reduction_latex_array.append(f"= \\mu\\cdot\\tau^{tau_degree_surplus}\\cdot"+Eij_matrix_latex+"\\cdot"+U_inverse_matrix_latex)
                         reduction_latex_array.append(f"= " + matrix_to_latex(new_Aij_matrix))
 
-                    new_Aij_Phi = tmc_utils.multiply_matrices_non_comm(new_Aij_matrix, Phi_module.simplified, finish=False)
-                    new_Psi_Aij = tmc_utils.multiply_matrices_non_comm(Psi_module.simplified, new_Aij_matrix, finish=False)
+                    new_Aij_Phi = tee_utils.multiply_matrices_non_comm(new_Aij_matrix, Phi_module.simplified, finish=False)
+                    new_Psi_Aij = tee_utils.multiply_matrices_non_comm(Psi_module.simplified, new_Aij_matrix, finish=False)
 
                     if phi_psi_options.show_reduction_steps == True:
                         reduction_latex_array.append("\\mathbf{\Phi_t = " + matrix_to_latex(Phi_module.simplified))
@@ -409,15 +409,15 @@ def get_r_matrix(Phi_module: T_Module, Psi_module: T_Module, initial_analysis: I
                     if phi_psi_options.show_reduction_steps == True:
                         reduction_latex_array.append("\\mathbf{$A_{"+element_position_text+"}$\cdot\Phi_t - \Psi_t\cdot$A_{"+element_position_text+"}$} = " + matrix_to_latex(new_Aij_Phi) + " - " + matrix_to_latex(new_Psi_Aij))
 
-                    new_Aij_Phi = new_Aij_Phi.applyfunc(tmc_utils.move_tau_to_the_right_of_other_symbols)
-                    new_Psi_Aij = new_Psi_Aij.applyfunc(tmc_utils.move_tau_to_the_right_of_other_symbols)
+                    new_Aij_Phi = new_Aij_Phi.applyfunc(tee_utils.move_tau_to_the_right_of_other_symbols)
+                    new_Psi_Aij = new_Psi_Aij.applyfunc(tee_utils.move_tau_to_the_right_of_other_symbols)
 
                     if phi_psi_options.show_reduction_steps == True:
                         reduction_latex_array.append("= " + matrix_to_latex(new_Aij_Phi) + " - " + matrix_to_latex(new_Psi_Aij) + "\\textbf{(apply twist)}")
 
                     move_tau = False # We already applied the twist to new_Psi_Aij above.
-                    new_Aij_Phi = tmc_utils.finish_multiply_matrices_non_comm(new_Aij_Phi, move_tau)
-                    new_Psi_Aij = tmc_utils.finish_multiply_matrices_non_comm(new_Psi_Aij, move_tau)
+                    new_Aij_Phi = tee_utils.finish_multiply_matrices_non_comm(new_Aij_Phi, move_tau)
+                    new_Psi_Aij = tee_utils.finish_multiply_matrices_non_comm(new_Psi_Aij, move_tau)
                     
                     if phi_psi_options.show_reduction_steps == True:
                         reduction_latex_array.append("= " + matrix_to_latex(new_Aij_Phi) + " - " + matrix_to_latex(new_Psi_Aij) +  "\\textbf{(simplify terms)}")
@@ -436,17 +436,17 @@ def get_r_matrix(Phi_module: T_Module, Psi_module: T_Module, initial_analysis: I
                     # reduction_latex_array.append("= " + matrix_to_latex(new_Aij_Phi__minus__Psi_Aij))
 
                     commutative_true = True
-                    new_Aij_Phi__minus__Psi_Aij = new_Aij_Phi__minus__Psi_Aij.applyfunc(lambda matrix_elem: tmc_utils.toggle_commutativity_for_all_symbols(matrix_elem, commutative_true))
-                    new_Aij_Phi__minus__Psi_Aij = tmc_utils.convert_matrix_to_simple_terms(new_Aij_Phi__minus__Psi_Aij)
+                    new_Aij_Phi__minus__Psi_Aij = new_Aij_Phi__minus__Psi_Aij.applyfunc(lambda matrix_elem: tee_utils.toggle_commutativity_for_all_symbols(matrix_elem, commutative_true))
+                    new_Aij_Phi__minus__Psi_Aij = tee_utils.convert_matrix_to_simple_terms(new_Aij_Phi__minus__Psi_Aij)
 
                     if phi_psi_options.group_coefficients == True:
-                        new_Aij_Phi__minus__Psi_Aij = new_Aij_Phi__minus__Psi_Aij.applyfunc(tmc_utils.group_coefficients_by_tau)
+                        new_Aij_Phi__minus__Psi_Aij = new_Aij_Phi__minus__Psi_Aij.applyfunc(tee_utils.group_coefficients_by_tau)
 
                         if phi_psi_options.show_reduction_steps == True:
                             reduction_latex_array.append(" = " + matrix_to_latex(new_Aij_Phi__minus__Psi_Aij) + "\\textbf{(group coefficients by} \\tau \\textbf{)}")
 
                     
-                    non_comm_coefficient = tmc_utils.toggle_commutativity_for_all_symbols(ongoing_reduction_matrix__max_deg_tuple.coefficient, True)
+                    non_comm_coefficient = tee_utils.toggle_commutativity_for_all_symbols(ongoing_reduction_matrix__max_deg_tuple.coefficient, True)
                     new_Aij_Phi__minus__Psi_Aij__effective_expression = new_Aij_Phi__minus__Psi_Aij[ongoing_reduction_matrix__max_deg_tuple.zero_based_row, ongoing_reduction_matrix__max_deg_tuple.zero_based_col]
                     new_Aij_Phi__minus__Psi_Aij__max_deg_tuple = get_max_degree_of_tau_in_expression(new_Aij_Phi__minus__Psi_Aij__effective_expression)
                     # print("new_Aij_Phi__minus__Psi_Aij__max_deg_tuple.coefficient=")
@@ -469,12 +469,12 @@ def get_r_matrix(Phi_module: T_Module, Psi_module: T_Module, initial_analysis: I
                         reduction_latex_array.append(" = " + matrix_to_latex(new_Aij_Phi__minus__Psi_Aij) + "\\textbf{(substitute} \\mu \\textbf{ with } "+sympy.latex(mu_value)+" \\textbf{)}}")
 
                     strip_integer_exponents_for_symbolic_execution = False
-                    new_Aij_Phi__minus__Psi_Aij = tmc_utils.convert_matrix_to_simple_terms(new_Aij_Phi__minus__Psi_Aij, strip_integer_exponents_for_symbolic_execution)
+                    new_Aij_Phi__minus__Psi_Aij = tee_utils.convert_matrix_to_simple_terms(new_Aij_Phi__minus__Psi_Aij, strip_integer_exponents_for_symbolic_execution)
                     if phi_psi_options.show_reduction_steps == True:
                         reduction_latex_array.append(" = " + matrix_to_latex(new_Aij_Phi__minus__Psi_Aij) + "\\textbf{(simplify terms after substitution)}")
 
                     if further_process_q_k == True:
-                        new_Aij_Phi__minus__Psi_Aij = tmc_utils.convert_matrix_to_simple_terms(new_Aij_Phi__minus__Psi_Aij, strip_integer_exponents_for_symbolic_execution=stripping_integers, p=p_val, n=n_val)
+                        new_Aij_Phi__minus__Psi_Aij = tee_utils.convert_matrix_to_simple_terms(new_Aij_Phi__minus__Psi_Aij, strip_integer_exponents_for_symbolic_execution=stripping_integers, p=p_val, n=n_val)
 
                         if phi_psi_options.show_reduction_steps == True:
                             if stripping_integers == True:
@@ -484,27 +484,27 @@ def get_r_matrix(Phi_module: T_Module, Psi_module: T_Module, initial_analysis: I
 
 
                     if phi_psi_options.group_coefficients == True:
-                        new_Aij_Phi__minus__Psi_Aij = new_Aij_Phi__minus__Psi_Aij.applyfunc(tmc_utils.group_coefficients_by_tau)
+                        new_Aij_Phi__minus__Psi_Aij = new_Aij_Phi__minus__Psi_Aij.applyfunc(tee_utils.group_coefficients_by_tau)
 
                         if phi_psi_options.show_reduction_steps == True:
                             reduction_latex_array.append(" = " + matrix_to_latex(new_Aij_Phi__minus__Psi_Aij) + "\\textbf{(AGAIN group coefficients by} \\tau \\textbf{)}")
 
                     reduced_matrix = ongoing_reduction_matrix - new_Aij_Phi__minus__Psi_Aij
                     reduced_matrix = reduced_matrix.expand()
-                    reduced_matrix = tmc_utils.convert_matrix_to_simple_terms(reduced_matrix, strip_integer_exponents_for_symbolic_execution)
+                    reduced_matrix = tee_utils.convert_matrix_to_simple_terms(reduced_matrix, strip_integer_exponents_for_symbolic_execution)
 
                     if phi_psi_options.show_reduction_steps == True:
                         reduction_latex_array.append("\\mathbf{"+matrix_to_latex(ongoing_reduction_matrix) + " - " + matrix_to_latex(new_Aij_Phi__minus__Psi_Aij) + "}")
                         reduction_latex_array.append(" = " + matrix_to_latex(reduced_matrix) + "\\textbf{(after subtraction)}")
 
                     if further_process_q_k == True and replacing_q_with_p_n == True:
-                        reduced_matrix = tmc_utils.convert_matrix_to_simple_terms(reduced_matrix, strip_integer_exponents_for_symbolic_execution=False, p=p_val, n=n_val)
+                        reduced_matrix = tee_utils.convert_matrix_to_simple_terms(reduced_matrix, strip_integer_exponents_for_symbolic_execution=False, p=p_val, n=n_val)
 
                         if phi_psi_options.show_reduction_steps == True:
                             reduction_latex_array.append(" = " + matrix_to_latex(reduced_matrix) + "\\textbf{(again replace q with p^n ("+str(p_val)+"^"+str(n_val)+") )}")
 
                     if phi_psi_options.group_coefficients == True:
-                        reduced_matrix = reduced_matrix.applyfunc(tmc_utils.group_coefficients_by_tau)
+                        reduced_matrix = reduced_matrix.applyfunc(tee_utils.group_coefficients_by_tau)
 
                         if phi_psi_options.show_reduction_steps == True:
                             reduction_latex_array.append(" = " + matrix_to_latex(reduced_matrix) + "\\textbf{(group coefficients by} \\tau \\textbf{)}")
@@ -528,7 +528,7 @@ def get_r_matrix(Phi_module: T_Module, Psi_module: T_Module, initial_analysis: I
                             if element == 0:
                                 continue
 
-                            all_degrees_of_tau = tmc_utils.get_all_degrees_of_tau_in_expression(element)
+                            all_degrees_of_tau = tee_utils.get_all_degrees_of_tau_in_expression(element)
 
                             coefficients_by_degrees = {}
 
@@ -558,22 +558,22 @@ def get_r_matrix(Phi_module: T_Module, Psi_module: T_Module, initial_analysis: I
                                 if phi_psi_options.group_coefficients == True:
                                     # "Undo" expansion for better readability
                                     if hasattr(sum_of_coefficients, "expand") and callable(getattr(sum_of_coefficients, "expand")):
-                                        sum_of_coefficients = tmc_utils.expand_frobenius_2(sum_of_coefficients, Q_SYMBOL)
+                                        sum_of_coefficients = tee_utils.expand_frobenius_2(sum_of_coefficients, Q_SYMBOL)
                                         sum_of_coefficients = sum_of_coefficients.expand()
 
                                 if phi_psi_options.show_reduction_steps == True:
                                     element__frobenius_expanded_expression += (sum_of_coefficients) * TAU_SYMBOL_NON_COMM**degree_of_tau
 
                                 if phi_psi_options.replace_c_with_tau == True:
-                                    sum_of_coefficients = tmc_utils.replace_c_with_tau(sum_of_coefficients)
+                                    sum_of_coefficients = tee_utils.replace_c_with_tau(sum_of_coefficients)
 
                                 if replacing_q_with_p_n:
                                     # print(f"reduce_to_finite_field start {sum_of_coefficients}, p={phi_psi_options.prime_characteristic}, n={phi_psi_options.extension_degree}")
-                                    sum_of_coefficients = tmc_ai_bridge.reduce_to_finite_field(sum_of_coefficients, phi_psi_options.prime_characteristic, phi_psi_options.extension_degree)
+                                    sum_of_coefficients = tee_ai_bridge.reduce_to_finite_field(sum_of_coefficients, phi_psi_options.prime_characteristic, phi_psi_options.extension_degree)
                                     # print(f"reduce_to_finite_field end {sum_of_coefficients}")
 
                                 if phi_psi_options.replace_q_with_integer == True:
-                                    sum_of_coefficients = tmc_utils.replace_q_power_with_integer(sum_of_coefficients)
+                                    sum_of_coefficients = tee_utils.replace_q_power_with_integer(sum_of_coefficients)
 
                                 ith_decomposition = Psi_Eij_c_tau_k_decomposition(row_index, col_index, degree_of_tau, sum_of_coefficients)
 
@@ -660,8 +660,8 @@ def get_r_matrix(Phi_module: T_Module, Psi_module: T_Module, initial_analysis: I
     leaf_count = 0
     byte_count = 0
     if phi_psi_options.calc_leaf_and_byte_counts == True:
-        leaf_count = tmc_utils.mathematica_leaf_count(r_matrix)
-        byte_count = tmc_utils.mathematica_matrix_byte_count(r_matrix)
+        leaf_count = tee_utils.mathematica_leaf_count(r_matrix)
+        byte_count = tee_utils.mathematica_matrix_byte_count(r_matrix)
 
     if phi_psi_options.reduce_log_output == False:
         print(f"leaf_count={leaf_count}")
@@ -702,8 +702,8 @@ def get_Eij_and_Aij_matrices(phi_module: sympy.Matrix, psi_module:sympy.Matrix, 
         initial_Aij_matrices.append(ith_Aij_matrix)
 
         # Only have to do the tau -> c^q^k conversion for Psi*Aij
-        ith_Aij_Phi = tmc_utils.multiply_matrices_non_comm(ith_Aij_matrix, phi_module, finish=True, move_tau=False)
-        ith_Psi_Aij = tmc_utils.multiply_matrices_non_comm(psi_module, ith_Aij_matrix, finish=True, move_tau=True)
+        ith_Aij_Phi = tee_utils.multiply_matrices_non_comm(ith_Aij_matrix, phi_module, finish=True, move_tau=False)
+        ith_Psi_Aij = tee_utils.multiply_matrices_non_comm(psi_module, ith_Aij_matrix, finish=True, move_tau=True)
 
         Aij_Phi_matrices.append(ith_Aij_Phi)
         Psi_Aij_matrices.append(ith_Psi_Aij)
@@ -717,7 +717,7 @@ def get_Eij_and_Aij_matrices(phi_module: sympy.Matrix, psi_module:sympy.Matrix, 
 
         Nij_list.append(int(ith_Nij))
 
-        contains_constant_term = tmc_utils.does_matrix_contain_constant_term(ith_Aij_Phi__minus__Psi_Aij_matrix)
+        contains_constant_term = tee_utils.does_matrix_contain_constant_term(ith_Aij_Phi__minus__Psi_Aij_matrix)
         contains_constant_term_list.append(contains_constant_term)
 
         degree_k_start = 0
@@ -733,17 +733,17 @@ def get_Eij_and_Aij_matrices(phi_module: sympy.Matrix, psi_module:sympy.Matrix, 
 
             kth_Eij_tau_k = ith_Eij_matrix_raw * TAU_SYMBOL_NON_COMM**degree_k
             kth_Eij_c_tau_k = ith_Eij_matrix_raw * (C_SYMBOL*TAU_SYMBOL_NON_COMM**degree_k)
-            kth_Psi_Eij_c_tau_k = tmc_utils.multiply_matrices_non_comm(psi_module, kth_Eij_c_tau_k)
+            kth_Psi_Eij_c_tau_k = tee_utils.multiply_matrices_non_comm(psi_module, kth_Eij_c_tau_k)
 
             if phi_psi_options.group_coefficients == True:
                 # I don't think this is strictly necessary, but applying just in case.
-                kth_Psi_Eij_c_tau_k = kth_Psi_Eij_c_tau_k.applyfunc(tmc_utils.group_coefficients_by_tau)
+                kth_Psi_Eij_c_tau_k = kth_Psi_Eij_c_tau_k.applyfunc(tee_utils.group_coefficients_by_tau)
 
-            kth_Psi_Eij_c_tau_k = tmc_utils.convert_matrix_to_simple_terms(kth_Psi_Eij_c_tau_k, strip_integer_exponents_for_symbolic_execution=False, p=phi_psi_options.prime_characteristic, n=phi_psi_options.extension_degree)
+            kth_Psi_Eij_c_tau_k = tee_utils.convert_matrix_to_simple_terms(kth_Psi_Eij_c_tau_k, strip_integer_exponents_for_symbolic_execution=False, p=phi_psi_options.prime_characteristic, n=phi_psi_options.extension_degree)
 
-            kth_Eij_tau_k__max_deg_tuple = tmc_utils.get_max_degree_of_tau_in_matrix(kth_Eij_tau_k)
-            kth_Eij_c_tau_k__max_deg_tuple = tmc_utils.get_max_degree_of_tau_in_matrix(kth_Eij_c_tau_k)
-            kth_Psi_Eij_c_tau_k__max_deg_tuple = tmc_utils.get_max_degree_of_tau_in_matrix(kth_Psi_Eij_c_tau_k)
+            kth_Eij_tau_k__max_deg_tuple = tee_utils.get_max_degree_of_tau_in_matrix(kth_Eij_tau_k)
+            kth_Eij_c_tau_k__max_deg_tuple = tee_utils.get_max_degree_of_tau_in_matrix(kth_Eij_c_tau_k)
+            kth_Psi_Eij_c_tau_k__max_deg_tuple = tee_utils.get_max_degree_of_tau_in_matrix(kth_Psi_Eij_c_tau_k)
 
             Eij_tau_k_matrices.append(MatrixWithEffectiveElement(kth_Eij_tau_k, zero_based_row, zero_based_col, degree_k, i, kth_Eij_tau_k__max_deg_tuple))
             Eij_c_tau_k_matrices.append(MatrixWithEffectiveElement(kth_Eij_c_tau_k, zero_based_row, zero_based_col, degree_k, i, kth_Eij_c_tau_k__max_deg_tuple))

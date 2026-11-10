@@ -10,7 +10,7 @@ from .linear import (zero, identity, unit, transpose, flatten, add, scale,
 from .compatible_basis import compatible_basis_report
 from .ore import OreMatrix, linear_scale, linear_add, linear_columns_to_ore
 
-import tmc_utils
+import tee_utils
 
 
 def _nilpotent(matrix, f):
@@ -128,7 +128,7 @@ class ReductionData:
         steps, count = [], 0
         bound = self.e * self.d * max(0, v.degree+1)
         while True:
-            tmc_utils.check_connection_still_alive()
+            tee_utils.check_connection_still_alive()
             # Step 1: locate the largest degree violating a column bound.
             # Ties follow sigma, then increasing target row.
             positions = [(a.entry_degree(i, s), order, i, s)

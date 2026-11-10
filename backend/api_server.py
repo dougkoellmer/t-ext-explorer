@@ -11,23 +11,23 @@ from sympy import Pow, Mul, Symbol, Poly, Add, Matrix, MatMul, symbols, zeros, o
 from functools import reduce
 
 import traceback
-import tmc_view
-import tmc_tests
-import tmc_utils
-import tmc_phi_psi
-import tmc_ai_bridge
-import tmc_consts
+import tee_view
+import tee_tests
+import tee_utils
+import tee_phi_psi
+import tee_ai_bridge
+import tee_consts
 
 import time
 
-from tmc_consts import *
-from tmc_types import *
+from tee_consts import *
+from tee_types import *
 
 REQUEST_CACHE__PHI_PSI_EMBEDDING = ThreadSafeLRUCache(1024)
 
 # Just in case some sympy.simplify() calls go a bit haywire.
 # UPDATE: Figured out the source of the issue I was dealing with.
-# See usage of tmc_utils.simplify_each_term_in_expression
+# See usage of tee_utils.simplify_each_term_in_expression
 # Setting the recursion limit high just seems to make it take longer
 # to throw the inevitable recursion limit exception.
 # sys.setrecursionlimit(5000)
@@ -55,16 +55,16 @@ def handle_phi_psi_input_validation_request(request_json):
 
     phi_psi_options = parse_phi_psi_options(request_json)
 
-    phi_psi_input = tmc_phi_psi.validate_input(Phi_latex, Psi_latex, phi_psi_options)
+    phi_psi_input = tee_phi_psi.validate_input(Phi_latex, Psi_latex, phi_psi_options)
 
-    response_dict = tmc_view.phi_psi_input_to_dict(phi_psi_input)
+    response_dict = tee_view.phi_psi_input_to_dict(phi_psi_input)
 
     return response_dict
 
 def handle_phi_psi_embedding_request(request_json):
     unit_test_results = None
     if FEATURE_FLAG__RUN_UNIT_TESTS:
-        unit_test_results = tmc_tests.run_tests()
+        unit_test_results = tee_tests.run_tests()
 
     if FEATURE_FLAG__RUN_UNIT_TESTS and FEATURE_FLAG__STOP_AFTER_UNIT_TESTS:
         response_dict = {
@@ -78,21 +78,21 @@ def handle_phi_psi_embedding_request(request_json):
     start_time = int(time.time_ns())
     Phi_latex = request_json.get("phi_module")
     Psi_latex = request_json.get("psi_module")
-    phi_psi_input = tmc_phi_psi.validate_input(Phi_latex, Psi_latex, phi_psi_options)
+    phi_psi_input = tee_phi_psi.validate_input(Phi_latex, Psi_latex, phi_psi_options)
 
     input_validation_end_time = int(time.time_ns())
     input_validation_elapsed_time = (input_validation_end_time-start_time) / 1e9
 
 
-    ai_reduction: PhiPsiReductionOutputFromAiCode = tmc_ai_bridge.run_reduction(phi_psi_input, phi_psi_options)
+    ai_reduction: PhiPsiReductionOutputFromAiCode = tee_ai_bridge.run_reduction(phi_psi_input, phi_psi_options)
     # print(f"ai_reduction={ai_reduction}")
 
-    # phi_psi_reduction_output: PhiPsiReductionOutput = tmc_phi_psi.run_analysis(phi_psi_input, phi_psi_options)
+    # phi_psi_reduction_output: PhiPsiReductionOutput = tee_phi_psi.run_analysis(phi_psi_input, phi_psi_options)
 
     # print(f"STARTING MATRIX COMPARISON")
-    # tmc_ai_bridge.compare_matrices("W_Matrix", phi_psi_reduction_output.Ext_matrix.raw, ai_reduction.Ext_Matrix.raw, phi_psi_options)
-    # tmc_ai_bridge.compare_matrices("V_Matrix", phi_psi_reduction_output.V_matrix.raw, ai_reduction.V_matrix)
-    # tmc_ai_bridge.compare_matrices("W_V_Matrix", phi_psi_reduction_output.W_V_matrix.raw, ai_reduction.W_V_matrix)
+    # tee_ai_bridge.compare_matrices("W_Matrix", phi_psi_reduction_output.Ext_matrix.raw, ai_reduction.Ext_Matrix.raw, phi_psi_options)
+    # tee_ai_bridge.compare_matrices("V_Matrix", phi_psi_reduction_output.V_matrix.raw, ai_reduction.V_matrix)
+    # tee_ai_bridge.compare_matrices("W_V_Matrix", phi_psi_reduction_output.W_V_matrix.raw, ai_reduction.W_V_matrix)
     # print(f"ENDING MATRIX COMPARISON")
     
 
@@ -119,8 +119,8 @@ class SimpleAPIHandler(BaseHTTPRequestHandler):
         if not super().parse_request():
             return False  # Parsing failed, stop execution
 
-        is_localhost = tmc_utils.is_running_on_localhost(self)
-        request_timeout = tmc_consts.get_request_timeout_in_secs(self.path, is_localhost)
+        is_localhost = tee_utils.is_running_on_localhost(self)
+        request_timeout = tee_consts.get_request_timeout_in_secs(self.path, is_localhost)
         
         if request_timeout > 0:
             self.connection.settimeout(request_timeout)
@@ -149,13 +149,13 @@ class SimpleAPIHandler(BaseHTTPRequestHandler):
         print(f"GET not allowed")
     def do_POST(self):
 
-        is_localhost = tmc_utils.is_running_on_localhost(self)
+        is_localhost = tee_utils.is_running_on_localhost(self)
         print(f"is_running_on_localhost={is_localhost}")
 
         current_epoch_seconds = int(time.time())
-        tmc_utils.thread_local.response = self
-        tmc_utils.thread_local.is_localhost = is_localhost
-        tmc_utils.thread_local.processing_start_time = current_epoch_seconds
+        tee_utils.thread_local.response = self
+        tee_utils.thread_local.is_localhost = is_localhost
+        tee_utils.thread_local.processing_start_time = current_epoch_seconds
         
         if self.path == "/validate_phi_psi_input":
             print(f"Handling {self.path} request...")
@@ -189,9 +189,9 @@ class SimpleAPIHandler(BaseHTTPRequestHandler):
                     "error": catch_all_exception_message
                 }
             
-            response_bytes_to_return = tmc_utils.get_final_json_chunk_bytes(response_dict)
+            response_bytes_to_return = tee_utils.get_final_json_chunk_bytes(response_dict)
             
-            tmc_utils.write_final_json_chunk(self, response_bytes_to_return, use_json_chunking=False)
+            tee_utils.write_final_json_chunk(self, response_bytes_to_return, use_json_chunking=False)
             
         elif self.path == "/module_cruncher":
 
@@ -230,12 +230,12 @@ class SimpleAPIHandler(BaseHTTPRequestHandler):
             response_bytes = None
 
             if request_cache is not None:
-                request_cache_key = tmc_utils.unique_hash(post_data_string)
+                request_cache_key = tee_utils.unique_hash(post_data_string)
                 response_bytes = request_cache.get(request_cache_key)
 
             if response_bytes is not None:
                 print("Returning cached result.")
-                tmc_utils.write_final_json_chunk(self, response_bytes)
+                tee_utils.write_final_json_chunk(self, response_bytes)
             else:
                 try:
                     if variant_raw == Variant.VARIANT__PHI_PSI_EMBEDDING.name:
@@ -255,15 +255,15 @@ class SimpleAPIHandler(BaseHTTPRequestHandler):
                         "error": catch_all_exception_message
                     }
                 
-                response_bytes_to_return = tmc_utils.get_final_json_chunk_bytes(response_dict)
+                response_bytes_to_return = tee_utils.get_final_json_chunk_bytes(response_dict)
                 
                 response_dict["cached"] = True
-                response_bytes_to_cache = tmc_utils.get_final_json_chunk_bytes(response_dict)
+                response_bytes_to_cache = tee_utils.get_final_json_chunk_bytes(response_dict)
 
                 if request_cache is not None and response_dict.get("success") == True:
                     request_cache.put(request_cache_key, response_bytes_to_cache)
                 
-                tmc_utils.write_final_json_chunk(self, response_bytes_to_return)
+                tee_utils.write_final_json_chunk(self, response_bytes_to_return)
         else:
             print(f"Invalid path")
             self.send_response(404)
