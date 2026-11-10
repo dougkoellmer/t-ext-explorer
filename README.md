@@ -36,11 +36,11 @@ See operator-focused README at [https://t-ext-explorer.com/t-Ext-Explorer-README
 - Deployment of the HTML5 front-end is done through GitHub Pages using this very repository. Commits to the main branch get instantly reflected in the live version.
 
 # Notes on Development History and Folder Organization
-Development of this codebase took place over 9 months. For the first 6 months, the code was hand-written, with all the mathematical operations done in such a way as to mimic how they would be done on paper. This early code played a role in shaping and refining the paper. However as the paper evolved, it eventually made a lot of the hand-written code obsolete.
+Development of this codebase took place over 9 months. For the first 6 months, the core, back-end, "engine" code was hand-written, with all the mathematical operations done in such a way as to mimic how they would be done on paper. This early code played a role in shaping and refining the paper. However as the paper evolved, it eventually made some of this hand-written code obsolete.
 
-Once the paper approached a final version, we used ChatGPT to help generate the final reference implementation. See all files in `/backend/ai_code`. These ChatGPT-generated files are placed in a separate folder in order to make a clean distinction between the very different styles and conventions used in the original hand-written code.
+Once the paper approached a final version, we used ChatGPT to help generate the final core engine implementation. See all files in `/backend/ai_code`. These ChatGPT-generated files are placed in a separate folder in order to make a clean distinction between the very different styles and conventions used in the original hand-written code.
 
-The hand-written code is still included in case it's helpful as a learning resource, and for any ongoing verification purposes. See all python files starting with `tee_`. It still calculates Ext^1 correctly, but does not produce any other necessary output.
+The majority of the supporting code for the front-end, HTTP back-and-forth, validation, etc. is still hand-written. The hand-written engine code is still included in case it's helpful as a learning resource, and for any ongoing verification purposes. See all python files starting with `tee_`. It still calculates Ext^1 correctly, but does not produce any other necessary output.
 
 The ChatGPT-generated code and the hand-written code were run side-by-side against thousands of automatically randomly generated examples to verify that both implementations produce the same output for Ext^1.
 
