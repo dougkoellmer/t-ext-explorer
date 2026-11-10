@@ -43,6 +43,3 @@ Once the paper approached a final version, we used ChatGPT to help generate the 
 The majority of the supporting code for the front-end, HTTP back-and-forth, validation, etc. is still hand-written. The hand-written engine code is still included in case it's helpful as a learning resource, and for any ongoing verification purposes. See all python files starting with `tee_`. It still calculates Ext^1 correctly, but does not produce any other necessary output.
 
 The ChatGPT-generated code and the hand-written code were run side-by-side against thousands of automatically randomly generated examples to verify that both implementations produce the same output for Ext^1.
-
-# Automated Testing
-- This aspect of the codebase could stand to be more formalized. 
