@@ -3,7 +3,6 @@ cd ../backend
 # This is how to run the dev server if you need to include any Sage code.
 # nodemon --exec "sage -python" api_server.py 6789
 
-# This was how to run the server before inclusion of CompatibleBasis.py, which required Sage.
 source venv/bin/activate
 nodemon api_server.py 6789
 
